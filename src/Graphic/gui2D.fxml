@@ -24,29 +24,35 @@
                     </children>
                 </Pane>
                 <Slider fx:id="idSlider" blockIncrement="1.0" layoutX="756.0" layoutY="500.0" majorTickUnit="1.0" max="12.0" min="1.0" minorTickCount="0" prefHeight="63.0" prefWidth="190.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                <Button fx:id="idSearch" layoutX="779.0" layoutY="608.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="141.0" text="Search" />
+                <Button fx:id="idSearch" layoutX="779.0" layoutY="608.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="141.0" text="Search">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Button>
                 <DatePicker fx:id="idDateBox" layoutX="820.0" layoutY="338.0" prefHeight="26.0" prefWidth="122.0" />
                 <TextField fx:id="idRegion" layoutX="755.0" layoutY="163.0" prefHeight="33.0" prefWidth="184.0" promptText="Région">
                     <font>
-                        <Font name="Arial Black" size="13.0" />
+                        <Font name="Arial" size="13.0" />
                     </font></TextField>
                 <TextArea fx:id="idConsole" layoutX="149.0" layoutY="578.0" prefHeight="102.0" prefWidth="600.0" promptText="Console..">
                     <font>
-                        <Font size="14.0" />
+                        <Font name="Arial" size="14.0" />
                     </font>
                 </TextArea>
-                <TextField fx:id="idDuree" layoutX="755.0" layoutY="372.0" prefHeight="33.0" prefWidth="184.0" promptText="Durée en mois" />
+                <TextField fx:id="idDuree" layoutX="755.0" layoutY="372.0" prefHeight="33.0" prefWidth="184.0" promptText="Durée en mois">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></TextField>
                 <Separator layoutX="749.0" layoutY="446.0" prefHeight="25.0" prefWidth="205.0" />
                 <Separator layoutX="748.0" layoutY="572.0" prefHeight="18.0" prefWidth="205.0" />
                 <Label layoutX="759.0" layoutY="341.0" prefHeight="19.0" prefWidth="61.0" text="Départ :  ">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="Arial" size="15.0" />
                     </font>
                 </Label>
                 <Separator layoutX="750.0" layoutY="138.0" prefHeight="18.0" prefWidth="205.0" />
                 <RadioButton fx:id="idZone" layoutX="759.0" layoutY="91.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" text="Recherche par zone">
                     <font>
-                        <Font size="14.0" />
+                        <Font name="Arial" size="14.0" />
                     </font>
                 </RadioButton>
                 <RadioButton fx:id="idNom" layoutX="759.0" layoutY="42.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" selected="true" text="Recherche par nom">
@@ -54,16 +60,25 @@
                         <Font name="Arial" size="14.0" />
                     </font>
                 </RadioButton>
-                <CheckBox fx:id="idDate" layoutX="759.0" layoutY="306.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Date :" />
+                <CheckBox fx:id="idDate" layoutX="759.0" layoutY="306.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Date :">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></CheckBox>
                 <Separator layoutX="749.0" layoutY="288.0" prefHeight="18.0" prefWidth="205.0" />
-                <TextField fx:id="idInterv" layoutX="755.0" layoutY="413.0" prefHeight="33.0" prefWidth="184.0" promptText="Nombres d'intervalles" />
+                <TextField fx:id="idInterv" layoutX="755.0" layoutY="413.0" prefHeight="33.0" prefWidth="184.0" promptText="Nombres d'intervalles">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></TextField>
                 <Label layoutX="762.0" layoutY="482.0" prefHeight="18.0" prefWidth="77.0" text="Précision : ">
                     <font>
-                        <Font size="14.0" />
+                        <Font name="Arial" size="14.0" />
                     </font>
                 </Label>
                 <ComboBox fx:id="idEsp" layoutX="758.0" layoutY="255.0" prefHeight="26.0" prefWidth="178.0" promptText="Recherche" />
-                <TextField fx:id="idEspece" layoutX="755.0" layoutY="209.0" prefHeight="33.0" prefWidth="184.0" promptText="Nom de l'espèce" />
+                <TextField fx:id="idEspece" layoutX="755.0" layoutY="209.0" prefHeight="33.0" prefWidth="184.0" promptText="Nom de l'espèce">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></TextField>
             </children>
         </Pane>
     </children>
