@@ -38,7 +38,7 @@ public class Requete {
         return sb.toString();
     }
 
-    public JSONObject getStartJSon(String path){
+    public static JSONObject getStartJSon(String path){
         try (Reader reader = new FileReader(path)){
             BufferedReader rd = new BufferedReader(reader);
             String jsonText = readAll(rd);
