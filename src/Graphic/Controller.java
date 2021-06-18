@@ -117,6 +117,15 @@ public class Controller implements Initializable {
 	@FXML
 	private Rectangle rec7;
 
+	@FXML
+	private Button idStart;
+
+	@FXML
+	private Button idPause;
+
+	@FXML
+	private Button idReset;
+
 
 	private static final float TEXTURE_LAT_OFFSET = -0.2f;
 	private static final float TEXTURE_LON_OFFSET = 2.8f;
@@ -129,6 +138,15 @@ public class Controller implements Initializable {
 
 		//Create a Pane et graph scene root for the 3D content
 		Group root3D = new Group();
+
+		legend0.setEditable(false);
+		legend1.setEditable(false);
+		legend2.setEditable(false);
+		legend3.setEditable(false);
+		legend4.setEditable(false);
+		legend5.setEditable(false);
+		legend6.setEditable(false);
+		legend7.setEditable(false);
 
 		idConsole.setEditable(false);
 		idSearch.setDisable(true);
@@ -143,6 +161,7 @@ public class Controller implements Initializable {
 		ToggleGroup GroupeSearch = new ToggleGroup();
 		idZone.setToggleGroup(GroupeSearch);
 		idNom.setToggleGroup(GroupeSearch);
+
 
 		idNom.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -262,13 +281,15 @@ public class Controller implements Initializable {
 		PerspectiveCamera camera = new PerspectiveCamera(true);
 		new CameraManager(camera, pane3D, root3D);
 
-		// Add point light
+		/*// Add point light
 		PointLight light = new PointLight(Color.WHITE);
 		light.setTranslateX(-180);
 		light.setTranslateY(-90);
 		light.setTranslateZ(-120);
 		light.getScope().addAll(root3D);
 		root3D.getChildren().add(light);
+
+		 */
 
 		// Add ambient light
 		AmbientLight ambientLight = new AmbientLight(Color.WHITE);
@@ -330,6 +351,7 @@ public class Controller implements Initializable {
 		});
 
 		App.Requete.startApp();
+		majLegende();
 		afficheEspNom(App.Requete.getListeRechercheNom(), earth);
 
 
@@ -346,15 +368,15 @@ public class Controller implements Initializable {
 
 					}else{
 						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
-
+						majLegende();
 						afficheEspNom(App.Requete.getListeRechercheNom(), earth);
+
 
 					}
 				}else{
 					App.Requete.creerRechercheZone(idEspece.getText(), idRegion.getText());
-					for(App.RechercheZone rechercheZone : App.Requete.getListeRechercheZone()){
-						idConsole.appendText(rechercheZone.getScientificName() + "\n");
-					}
+					majLegende();
+
 				}
 			}
 		});
@@ -365,41 +387,47 @@ public class Controller implements Initializable {
 
 
 
-		final PhongMaterial rec0Material = new PhongMaterial();
-		rec0Material.setDiffuseColor((Color) rec0.getFill());
-		final PhongMaterial rec1Material = new PhongMaterial();
-		rec1Material.setDiffuseColor((Color) rec1.getFill());
-		final PhongMaterial rec2Material = new PhongMaterial();
-		rec2Material.setDiffuseColor((Color) rec2.getFill());
-		final PhongMaterial rec3Material = new PhongMaterial();
-		rec3Material.setDiffuseColor((Color) rec3.getFill());
-		final PhongMaterial rec4Material = new PhongMaterial();
-		rec4Material.setDiffuseColor((Color) rec4.getFill());
-		final PhongMaterial rec5Material = new PhongMaterial();
-		rec5Material.setDiffuseColor((Color) rec5.getFill());
-		final PhongMaterial rec6Material = new PhongMaterial();
-		rec6Material.setDiffuseColor((Color) rec6.getFill());
-		final PhongMaterial rec7Material = new PhongMaterial();
-		rec7Material.setDiffuseColor((Color) rec7.getFill());
-
 		for(App.RechercheNom rechercheNom : listeRechercheNom) {
+
+			int occurence = rechercheNom.getOccurence();
+			Color color = choixCouleur(occurence);
+			PhongMaterial phongMaterial = new PhongMaterial();
+			phongMaterial.setDiffuseColor(color);
 
 			AddQuadrilateral(earth,
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(3).getY(), (float) rechercheNom.getCoord().get(3).getX()),
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(0).getY(), (float) rechercheNom.getCoord().get(0).getX()),
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(1).getY(), (float) rechercheNom.getCoord().get(1).getX()),
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(2).getY(), (float) rechercheNom.getCoord().get(2).getX()),
-					rec0Material);
+					phongMaterial);
 
 		}
+	}
 
+	private void majLegende()
+	{
+		int ecart = (App.Requete.getMaxOccurence() - App.Requete.getMinOccurence()) / 8;
+		legend0.setText(Integer.toString(App.Requete.getMinOccurence()));
+		legend1.setText(Integer.toString(App.Requete.getMinOccurence() + 1 * ecart));
+		legend2.setText(Integer.toString(App.Requete.getMinOccurence() + 2 * ecart));
+		legend3.setText(Integer.toString(App.Requete.getMinOccurence() + 3 * ecart));
+		legend4.setText(Integer.toString(App.Requete.getMinOccurence() + 4 * ecart));
+		legend5.setText(Integer.toString(App.Requete.getMinOccurence() + 5 * ecart));
+		legend6.setText(Integer.toString(App.Requete.getMinOccurence() + 6 * ecart));
+		legend7.setText(Integer.toString(App.Requete.getMinOccurence() + 7 * ecart));
+	}
 
+	private Color choixCouleur(int occurence)
+	{
+		if (occurence >= Integer.parseInt(legend0.getText())  && occurence < Integer.parseInt(legend1.getText())) return (Color) rec0.getFill();
+		else if (occurence >= Integer.parseInt(legend1.getText()) && occurence < Integer.parseInt(legend2.getText())) return (Color) rec1.getFill();
+		else if (occurence >= Integer.parseInt(legend2.getText()) && occurence < Integer.parseInt(legend3.getText())) return (Color) rec2.getFill();
+		else if (occurence >= Integer.parseInt(legend3.getText()) && occurence < Integer.parseInt(legend4.getText())) return (Color) rec3.getFill();
+		else if (occurence >= Integer.parseInt(legend4.getText()) && occurence < Integer.parseInt(legend5.getText())) return (Color) rec4.getFill();
+		else if (occurence >= Integer.parseInt(legend5.getText()) && occurence < Integer.parseInt(legend6.getText())) return (Color) rec5.getFill();
+		else if (occurence >= Integer.parseInt(legend6.getText()) && occurence < Integer.parseInt(legend7.getText())) return (Color) rec6.getFill();
+		else   return (Color) rec7.getFill();
 
-
-		AddQuadrilateral(earth, geoCoordTo3dCoord(37.469075f,126.450517f),
-				geoCoordTo3dCoord(37.0f , 5.213611f),
-				geoCoordTo3dCoord(37,126),
-				geoCoordTo3dCoord(37.469075f, 126), rec0Material);
 	}
 
 	public Cylinder createLine(Point3D origin, Point3D target) {

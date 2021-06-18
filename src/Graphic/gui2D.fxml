@@ -22,11 +22,6 @@
                 <Pane fx:id="pane3D" layoutX="149.0" layoutY="11.0" prefHeight="572.0" prefWidth="600.0" style="-fx-background-color: #DCDCDC#DCDCDC;">
                     <children>
                         <Separator layoutX="597.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="670.0" prefWidth="5.0" />
-                  <TextField fx:id="legend2" alignment="CENTER_RIGHT" layoutX="529.0" layoutY="374.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="40000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
                     </children>
                 </Pane>
                 <Slider fx:id="idSlider" blockIncrement="1.0" layoutX="756.0" layoutY="500.0" majorTickUnit="1.0" max="12.0" min="1.0" minorTickCount="0" prefHeight="63.0" prefWidth="190.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
@@ -93,41 +88,53 @@
             <Rectangle fx:id="rec2" arcHeight="5.0" arcWidth="5.0" fill="#fff921" height="50.0" layoutX="720.0" layoutY="340.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
             <Rectangle fx:id="rec1" arcHeight="5.0" arcWidth="5.0" fill="#c6ff21" height="50.0" layoutX="720.0" layoutY="390.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
             <Rectangle fx:id="rec0" arcHeight="5.0" arcWidth="5.0" fill="#7df81e" height="50.0" layoutX="720.0" layoutY="440.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-            <TextField fx:id="legend7" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="135.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;" text="140000">
+            <TextField fx:id="legend7" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="135.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend6" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="187.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="120000">
+            <TextField fx:id="legend6" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="187.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend5" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="237.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="100000">
+            <TextField fx:id="legend5" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="237.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend4" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="287.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="80000">
+            <TextField fx:id="legend4" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="287.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend1" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="437.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="20000">
+            <TextField fx:id="legend3" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="337.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend0" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="484.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="0">
+            <TextField fx:id="legend1" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="437.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend3" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="337.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="60000">
+            <TextField fx:id="legend0" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="484.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
+            <TextField fx:id="legend2" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="387.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
+            <Button fx:id="idStart" layoutX="180.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Start">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="idPause" layoutX="250.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Pause" />
+            <Button fx:id="idReset" layoutX="320.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Reset" />
             </children>
         </Pane>
     </children>

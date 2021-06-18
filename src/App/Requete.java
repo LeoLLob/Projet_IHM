@@ -16,10 +16,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Requete {
-    private static ArrayList<RechercheNom> listeRechercheNom;
-    private static ArrayList<RechercheDate> listeRechercheDate;
-    private static ArrayList<RechercheZone> listeRechercheZone;
-    private static ArrayList<String> listeNom;
+    private static ArrayList<RechercheNom> listeRechercheNom = new ArrayList<RechercheNom>();
+    private static ArrayList<RechercheDate> listeRechercheDate = new ArrayList<RechercheDate>();
+    private static ArrayList<RechercheZone> listeRechercheZone = new ArrayList<RechercheZone>();;
+    private static ArrayList<String> listeNom = new ArrayList<String>();
     private static int maxOccurence;
     private static int minOccurence;
 
@@ -47,11 +47,11 @@ public class Requete {
         return listeNom;
     }
 
-    public int getMaxOccurence() {
+    public static int getMaxOccurence() {
         return maxOccurence;
     }
 
-    public int getMinOccurence() {
+    public static int getMinOccurence() {
         return minOccurence;
     }
 
@@ -84,7 +84,6 @@ public class Requete {
         maxOccurence = Integer.MIN_VALUE;
         minOccurence = Integer.MAX_VALUE;
 
-        listeRechercheNom = new ArrayList<>();
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
             JSONObject recherche = (JSONObject) object;
@@ -192,7 +191,7 @@ public class Requete {
         maxOccurence = Integer.MIN_VALUE;
         minOccurence = Integer.MAX_VALUE;
         
-        listeRechercheNom = new ArrayList<>();
+        listeRechercheNom.clear();
         String url = getURL(scientificName, precision);
         JSONObject JsonRoot = readJsonFromUrl(url);
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
@@ -229,7 +228,7 @@ public class Requete {
         maxOccurence = Integer.MIN_VALUE;
         minOccurence = Integer.MAX_VALUE;
 
-        listeRechercheDate = new ArrayList<>();
+        listeRechercheDate.clear();
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
             JSONObject recherche = (JSONObject) object;
@@ -260,7 +259,7 @@ public class Requete {
     }
 
     public static void creerRechercheZone(String scientificName, String geoHash){
-        listeRechercheZone = new ArrayList<>();
+        listeRechercheZone.clear();
         String url = getURLZone(scientificName, geoHash);
         JSONObject JsonRoot = readJsonFromUrl(url);
         JSONArray resultatRecherche = JsonRoot.getJSONArray("results");
@@ -292,7 +291,7 @@ public class Requete {
     }
 
     public static void listeNom(String chaine){
-        listeNom = new ArrayList<>();
+        listeNom.clear();
         String url = getURLNom(chaine);
         JSONArray JsonRoot = readJsonFromUrlListeNom(url);
         for(Object Object : JsonRoot) {
