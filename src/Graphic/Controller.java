@@ -1,6 +1,8 @@
 package Graphic;
 
 import java.net.URL;
+
+import App.RechercheNom;
 import App.Requete;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -11,28 +13,18 @@ import com.interactivemesh.jfx.importer.ImportException;
 import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Sphere;
-import javafx.scene.shape.TriangleMesh;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -77,6 +69,54 @@ public class Controller implements Initializable {
 
 	@FXML
 	private TextField idEspece;
+
+	@FXML
+	private Label legend0;
+
+	@FXML
+	private Label legend1;
+
+	@FXML
+	private Label legend2;
+
+	@FXML
+	private Label legend3;
+
+	@FXML
+	private Label legend4;
+
+	@FXML
+	private Label legend5;
+
+	@FXML
+	private Label legend6;
+
+	@FXML
+	private Label legend7;
+
+	@FXML
+	private Rectangle rec0;
+
+	@FXML
+	private Rectangle rec1;
+
+	@FXML
+	private Rectangle rec2;
+
+	@FXML
+	private Rectangle rec3;
+
+	@FXML
+	private Rectangle rec4;
+
+	@FXML
+	private Rectangle rec5;
+
+	@FXML
+	private Rectangle rec6;
+
+	@FXML
+	private Rectangle rec7;
 
 
 	private static final float TEXTURE_LAT_OFFSET = -0.2f;
@@ -204,27 +244,9 @@ public class Controller implements Initializable {
 				}
 			});
 
-		idSearch.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				if(idNom.isSelected()){
-					if(idDate.isSelected()){
 
-					}else{
-						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
-						idConsole.clear();
-						for(App.RechercheNom rechercheNom : App.Requete.getListeRechercheNom()){
-							idConsole.appendText(rechercheNom.getOccurence() + "\n");
-						}
-					}
-				}else{
-					App.Requete.creerRechercheZone(idEspece.getText(), idRegion.getText());
-					for(App.RechercheZone rechercheZone : App.Requete.getListeRechercheZone()){
-						idConsole.appendText(rechercheZone.getScientificName() + "\n");
-					}
-				}
-			}
-		});
+
+
 
 		//Importation de la Terre
 		ObjModelImporter objImporter = new ObjModelImporter();
@@ -236,20 +258,6 @@ public class Controller implements Initializable {
 		}
 		MeshView[] meshViews = objImporter.getImport();
 		Group earth = new Group(meshViews);
-
-
-		Point3D brest = geoCoordTo3dCoord(48.447911f, -4.418539f);
-		Point3D topRight = new Point3D(brest.getZ()-1, brest.getX()+1, brest.getZ());
-		Point3D bottomRight = new Point3D(brest.getZ()+1, brest.getX()-1, brest.getZ());
-		Point3D bottomLeft = new Point3D(brest.getZ()-1, brest.getX()-1, brest.getZ());
-		Point3D topLeft = new Point3D(brest.getZ()+1, brest.getX()+1, brest.getZ());
-
-		final PhongMaterial redMaterial = new PhongMaterial();
-		redMaterial.setDiffuseColor(new Color(0.5,0.0,0.0,0.1));
-		AddQuadrilateral(earth, topRight, bottomRight, bottomLeft, topLeft, redMaterial);
-
-		// Draw city on the earth
-		displayTown(earth, "Brest", 48.447911f, -4.418539f);
 
 		// Add a camera group
 		PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -322,9 +330,69 @@ public class Controller implements Initializable {
 			}
 		});
 
+		idSearch.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if(idNom.isSelected()){
+					if(idDate.isSelected()){
+
+					}else{
+						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
+						idConsole.clear();
+						afficheEspNom(App.Requete.getListeRechercheNom(), earth);
+
+					}
+				}else{
+					App.Requete.creerRechercheZone(idEspece.getText(), idRegion.getText());
+					for(App.RechercheZone rechercheZone : App.Requete.getListeRechercheZone()){
+						idConsole.appendText(rechercheZone.getScientificName() + "\n");
+					}
+				}
+			}
+		});
 
 	}
 
+	public void afficheEspNom (ArrayList< RechercheNom > listeRechercheNom, Group earth){
+
+
+		final PhongMaterial rec0Material = new PhongMaterial();
+		rec0Material.setDiffuseColor((Color) rec0.getFill());
+		final PhongMaterial rec1Material = new PhongMaterial();
+		rec1Material.setDiffuseColor((Color) rec1.getFill());
+		final PhongMaterial rec2Material = new PhongMaterial();
+		rec2Material.setDiffuseColor((Color) rec2.getFill());
+		final PhongMaterial rec3Material = new PhongMaterial();
+		rec3Material.setDiffuseColor((Color) rec3.getFill());
+		final PhongMaterial rec4Material = new PhongMaterial();
+		rec4Material.setDiffuseColor((Color) rec4.getFill());
+		final PhongMaterial rec5Material = new PhongMaterial();
+		rec5Material.setDiffuseColor((Color) rec5.getFill());
+		final PhongMaterial rec6Material = new PhongMaterial();
+		rec6Material.setDiffuseColor((Color) rec6.getFill());
+		final PhongMaterial rec7Material = new PhongMaterial();
+		rec7Material.setDiffuseColor((Color) rec7.getFill());
+
+		for(App.RechercheNom rechercheNom : listeRechercheNom) {
+
+			AddQuadrilateral(earth,
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(3).getX(), (float) rechercheNom.getCoord().get(3).getY()),
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(0).getX(), (float) rechercheNom.getCoord().get(0).getY()),
+
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(1).getX(), (float) rechercheNom.getCoord().get(1).getY()),
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(2).getX(), (float) rechercheNom.getCoord().get(2).getY()),
+					rec0Material);
+
+		}
+
+
+
+
+		AddQuadrilateral(earth, geoCoordTo3dCoord(37.469075f,126.450517f),
+				geoCoordTo3dCoord(37.0f , 5.213611f),
+				geoCoordTo3dCoord(37,126),
+				geoCoordTo3dCoord(37.469075f, 126), rec0Material);
+	}
 
 	public Cylinder createLine(Point3D origin, Point3D target) {
 		Point3D yAxis = new Point3D(0, 1, 0);
@@ -350,10 +418,10 @@ public class Controller implements Initializable {
 		float lon_cor = lon + TEXTURE_LON_OFFSET;
 		return new Point3D(
 				-Math.sin(Math.toRadians(lon_cor))
-				* Math.cos(Math.toRadians(lat_cor)),
-				-Math.sin(Math.toRadians(lat_cor)),
+						* Math.cos(Math.toRadians(lat_cor))*1.01,
+				-Math.sin(Math.toRadians(lat_cor))*1.01,
 				Math.cos(Math.toRadians(lon_cor))
-				* Math.cos(Math.toRadians(lat_cor)));
+						* Math.cos(Math.toRadians(lat_cor))*1.01 + 2);
 	}
 
 
