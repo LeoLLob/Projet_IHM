@@ -372,7 +372,7 @@ public class Controller implements Initializable {
 
 				if (idNom.isSelected()) {
 					if (idDate.isSelected()) {
-						
+
 					} else {
 						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
 						majLegende();

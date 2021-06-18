@@ -142,6 +142,7 @@ public class Requete {
 
     public static JSONObject readJsonFromUrl(String url) {
         String json = "";
+        url = url.replaceAll(" ","%20");
         HttpClient client = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)
                 .followRedirects(HttpClient.Redirect.NORMAL)
@@ -165,6 +166,7 @@ public class Requete {
 
     public static JSONArray readJsonFromUrlListeNom(String url) {
         String json = "";
+        url = url.replaceAll(" ","%20");
         HttpClient client = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)
                 .followRedirects(HttpClient.Redirect.NORMAL)
