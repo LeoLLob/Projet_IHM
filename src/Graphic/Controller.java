@@ -2,7 +2,6 @@ package Graphic;
 
 import java.net.URL;
 import App.Requete;
-import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,7 +36,6 @@ import javafx.scene.transform.Translate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import org.json.JSONArray;
 
 public class Controller implements Initializable {
 
@@ -185,9 +183,8 @@ public class Controller implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 				idEsp.getItems().clear();
-				App.Requete requete = new Requete();
-				requete.listeNom(idEspece.getText());
-				idEsp.getItems().addAll(requete.getListeNom());
+				App.Requete.listeNom(idEspece.getText());
+				idEsp.getItems().addAll(App.Requete.getListeNom());
 				idEsp.show();
 			}
 		});
@@ -206,9 +203,25 @@ public class Controller implements Initializable {
 				    idRegion.getText().trim().isEmpty()));
 				}
 			});
-		
 
+		idSearch.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if(idNom.isSelected()){
+					if(idDate.isSelected()){
 
+					}else{
+						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
+						idConsole.clear();
+						for(App.RechercheNom rechercheNom : App.Requete.getListeRechercheNom()){
+							idConsole.appendText(rechercheNom.getOccurence() + "\n");
+						}
+					}
+				}else{
+					App.Requete.creerRechercheZone(idEspece.getText(), idRegion.getText());
+				}
+			}
+		});
 
 		//Importation de la Terre
 		ObjModelImporter objImporter = new ObjModelImporter();
@@ -222,11 +235,11 @@ public class Controller implements Initializable {
 		Group earth = new Group(meshViews);
 
 
-		Point3D bresto = geoCoordTo3dCoord(48.447911f, -4.418539f);
-		Point3D topRight = new Point3D(bresto.getZ()-1,bresto.getX()+1,bresto.getZ());
-		Point3D bottomRight = new Point3D(bresto.getZ()+1,bresto.getX()-1,bresto.getZ());
-		Point3D bottomLeft = new Point3D(bresto.getZ()-1,bresto.getX()-1,bresto.getZ());
-		Point3D topLeft = new Point3D(bresto.getZ()+1,bresto.getX()+1,bresto.getZ());
+		Point3D brest = geoCoordTo3dCoord(48.447911f, -4.418539f);
+		Point3D topRight = new Point3D(brest.getZ()-1, brest.getX()+1, brest.getZ());
+		Point3D bottomRight = new Point3D(brest.getZ()+1, brest.getX()-1, brest.getZ());
+		Point3D bottomLeft = new Point3D(brest.getZ()-1, brest.getX()-1, brest.getZ());
+		Point3D topLeft = new Point3D(brest.getZ()+1, brest.getX()+1, brest.getZ());
 
 		final PhongMaterial redMaterial = new PhongMaterial();
 		redMaterial.setDiffuseColor(new Color(0.5,0.0,0.0,0.1));

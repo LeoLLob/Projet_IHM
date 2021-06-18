@@ -29,19 +29,19 @@ public class Requete {
 
     }
 
-    public ArrayList<RechercheDate> getListeRechercheDate() {
+    public static ArrayList<RechercheDate> getListeRechercheDate() {
         return listeRechercheDate;
     }
 
-    public ArrayList<RechercheNom> getListeRechercheNom() {
+    public static ArrayList<RechercheNom> getListeRechercheNom() {
         return listeRechercheNom;
     }
 
-    public ArrayList<RechercheZone> getListeRechercheZone() {
+    public static ArrayList<RechercheZone> getListeRechercheZone() {
         return listeRechercheZone;
     }
 
-    public ArrayList<String> getListeNom() {
+    public static ArrayList<String> getListeNom() {
         return listeNom;
     }
 
@@ -143,7 +143,7 @@ public class Requete {
     }
 
 
-    public void creerRechercheNom(String scientificName, int precision){
+    public static void creerRechercheNom(String scientificName, int precision){
         listeRechercheNom = new ArrayList<>();
         String url = getURL(scientificName, precision);
         JSONObject JsonRoot = readJsonFromUrl(url);
@@ -174,7 +174,7 @@ public class Requete {
     }
 
     // nombre de signalements par zone par intervalle de temps
-    public void creerRechercheDate(String scientificName, int precision, String dateDebut, String dateFin, JSONObject JsonRoot){
+    public static void creerRechercheDate(String scientificName, int precision, String dateDebut, String dateFin, JSONObject JsonRoot){
         listeRechercheDate = new ArrayList<>();
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
@@ -202,7 +202,7 @@ public class Requete {
         }
     }
 
-    public void creerRechercheZone(String scientificName, String geoHash){
+    public static void creerRechercheZone(String scientificName, String geoHash){
         listeRechercheZone = new ArrayList<>();
         String url = getURLZone(scientificName, geoHash);
         JSONObject JsonRoot = readJsonFromUrl(url);
@@ -234,7 +234,7 @@ public class Requete {
         }
     }
 
-    public void listeNom(String chaine){
+    public static void listeNom(String chaine){
         listeNom = new ArrayList<>();
         String url = getURLNom(chaine);
         JSONArray JsonRoot = readJsonFromUrlListeNom(url);
