@@ -143,48 +143,6 @@ public class Controller implements Initializable {
 				}
 			}
 		});
-		
-		idEspece.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-					idSearch.disableProperty().bind(Bindings.createBooleanBinding(() -> 
-				    idEspece.getText().trim().isEmpty()));
-					if(idRegion.getText().trim().isEmpty() && idZone.isSelected()){
-						idConsole.appendText("Recherche incomplète : il manque le nom de la région !\n									********************************** \n");
-						idConsole.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
-					}
-
-				}
-			});
-
-		idEspece.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-				idEsp.getItems().clear();
-				App.Requete requete = new Requete();
-				String URL = App.Requete.getURLNom(idEspece.getText());
-				JSONArray Json = App.Requete.readJsonFromUrlListeNom(URL);
-				requete.listeNom(Json);
-				idEsp.getItems().addAll(requete.getListeNom());
-				idEsp.show();
-			}
-		});
-
-		idEsp.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				idEspece.setText(idEsp.getValue());
-			}
-		});
-
-		idRegion.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-					idSearch.disableProperty().bind(Bindings.createBooleanBinding(() -> 
-				    idRegion.getText().trim().isEmpty()));
-				}
-			});
-		
 
 		idZone.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -209,6 +167,48 @@ public class Controller implements Initializable {
 				}
 			}
 		});
+		
+		idEspece.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+					idSearch.disableProperty().bind(Bindings.createBooleanBinding(() -> 
+				    idEspece.getText().trim().isEmpty()));
+					if(idRegion.getText().trim().isEmpty() && idZone.isSelected()){
+						idConsole.appendText("Recherche incomplète : il manque le nom de la région !\n									********************************** \n");
+						idConsole.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+					}
+
+				}
+			});
+
+		idEspece.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+				idEsp.getItems().clear();
+				App.Requete requete = new Requete();
+				requete.listeNom(idEspece.getText());
+				idEsp.getItems().addAll(requete.getListeNom());
+				idEsp.show();
+			}
+		});
+
+		idEsp.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				idEspece.setText(idEsp.getValue());
+			}
+		});
+
+		idRegion.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+					idSearch.disableProperty().bind(Bindings.createBooleanBinding(() -> 
+				    idRegion.getText().trim().isEmpty()));
+				}
+			});
+		
+
+
 
 		//Importation de la Terre
 		ObjModelImporter objImporter = new ObjModelImporter();
@@ -255,7 +255,7 @@ public class Controller implements Initializable {
 		root3D.getChildren().add(earth);
 
 		//Animation de la Terre
-		Animation(earth, 30);
+		//Animation(earth, 30);
 
 		// Create subscene
 		SubScene subscene = new SubScene(root3D, 600, 600, true, SceneAntialiasing.BALANCED);
@@ -403,7 +403,7 @@ public class Controller implements Initializable {
 		return new Point2D(lat,lon);
 	}
 
-
+/*
 	public void Animation(Group earth, double RotationSpeed) {
 		final long startNanoTime = System.nanoTime();
 		new AnimationTimer() {
@@ -414,6 +414,8 @@ public class Controller implements Initializable {
 			}
 		}.start();
 	}
+
+ */
  /*
 	public void majComboBox(String nom) {
 		ObservableList<String> Liste = FXCollections.observableArrayList();
@@ -441,8 +443,7 @@ public class Controller implements Initializable {
 		idEspece.setText(nom);
 	}
 */
-	
-	
+
 }
 
 
