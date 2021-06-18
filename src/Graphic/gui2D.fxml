@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
@@ -135,6 +136,7 @@
             </Button>
             <Button fx:id="idPause" layoutX="250.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Pause" />
             <Button fx:id="idReset" layoutX="320.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Reset" />
+            <ListView fx:id="list" layoutX="150.0" layoutY="12.0" prefHeight="200.0" prefWidth="200.0" />
             </children>
         </Pane>
     </children>

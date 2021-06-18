@@ -7,6 +7,8 @@ import App.Requete;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import com.interactivemesh.jfx.importer.ImportException;
@@ -24,6 +26,7 @@ import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -126,6 +129,9 @@ public class Controller implements Initializable {
 	@FXML
 	private Button idReset;
 
+	@FXML
+	private ListView list;
+
 
 	private static final float TEXTURE_LAT_OFFSET = -0.2f;
 	private static final float TEXTURE_LON_OFFSET = 2.8f;
@@ -149,12 +155,14 @@ public class Controller implements Initializable {
 		legend7.setEditable(false);
 
 		idConsole.setEditable(false);
-		idSearch.setDisable(true);
+
 		idDateBox.setDisable(true);
 		idInterv.setDisable(true);
 		idDuree.setDisable(true);
 
-		if(idNom.isSelected()) {
+		list.setVisible(false);
+
+		if (idNom.isSelected()) {
 			idRegion.setDisable(true);
 		}
 
@@ -166,14 +174,14 @@ public class Controller implements Initializable {
 		idNom.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				if(idNom.isSelected()){
+				if (idNom.isSelected()) {
 					idRegion.setDisable(true);
 					idDate.setDisable(false);
 					idSlider.setDisable(false);
 
 				}
 
-				if(GroupeSearch!=null){
+				if (GroupeSearch != null) {
 					GroupeSearch.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 						public void changed(
 								ObservableValue<? extends Toggle> arg0,
@@ -187,12 +195,11 @@ public class Controller implements Initializable {
 		idDate.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				if(idDate.isSelected()){
+				if (idDate.isSelected()) {
 					idDateBox.setDisable(false);
 					idInterv.setDisable(false);
 					idDuree.setDisable(false);
-				}
-				else {
+				} else {
 					idDateBox.setDisable(true);
 					idInterv.setDisable(true);
 					idDuree.setDisable(true);
@@ -203,7 +210,7 @@ public class Controller implements Initializable {
 		idZone.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				if(idZone.isSelected()){
+				if (idZone.isSelected()) {
 					idDate.setDisable(true);
 					idDateBox.setDisable(true);
 					idDuree.setDisable(true);
@@ -213,7 +220,7 @@ public class Controller implements Initializable {
 					idDate.setSelected(false);
 				}
 
-				if(GroupeSearch!=null){
+				if (GroupeSearch != null) {
 					GroupeSearch.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 						public void changed(
 								ObservableValue<? extends Toggle> arg0,
@@ -223,19 +230,21 @@ public class Controller implements Initializable {
 				}
 			}
 		});
-		
-		idEspece.setOnAction(new EventHandler<ActionEvent>() {
+
+		/*idEspece.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-					idSearch.disableProperty().bind(Bindings.createBooleanBinding(() -> 
-				    idEspece.getText().trim().isEmpty()));
-					if(idRegion.getText().trim().isEmpty() && idZone.isSelected()){
-						idConsole.appendText("Recherche incomplète : il manque le nom de la région !\n									********************************** \n");
-						idConsole.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
-					}
-
+				idSearch.disableProperty().bind(Bindings.createBooleanBinding(() ->
+						idEspece.getText().isEmpty()));
+				if (idRegion.getText().trim().isEmpty() && idZone.isSelected()) {
+					idConsole.appendText("Recherche incomplète : il manque le nom de la région !\n									********************************** \n");
+					idConsole.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
 				}
-			});
+
+			}
+		});
+
+		 */
 
 		idEspece.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -257,13 +266,10 @@ public class Controller implements Initializable {
 		idRegion.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-					idSearch.disableProperty().bind(Bindings.createBooleanBinding(() -> 
-				    idRegion.getText().trim().isEmpty()));
-				}
-			});
-
-
-
+				idSearch.disableProperty().bind(Bindings.createBooleanBinding(() ->
+						idRegion.getText().trim().isEmpty()));
+			}
+		});
 
 
 		//Importation de la Terre
@@ -341,11 +347,11 @@ public class Controller implements Initializable {
 				Double latitude = latCursor;
 				Double longitude = lonCursor;
 				GeoHash.Location loc = new GeoHash.Location("selectedGeoHash", latCursor, lonCursor);
-				String Hash = GeoHash.GeoHashHelper.getGeohash(loc,5);
+				String Hash = GeoHash.GeoHashHelper.getGeohash(loc, 5);
 				idConsole.setStyle("-fx-text-fill: black; -fx-font-size: 13px;");
-				idConsole.appendText("Coordonnée en x : " + x + "\n" + "Coordonnée en y : " + y + "\n" 
+				idConsole.appendText("Coordonnée en x : " + x + "\n" + "Coordonnée en y : " + y + "\n"
 						+ "Coordonnée en z : " + z + "\n" + "Longitude : " + longitude + "\n" + "Latitude : " + latitude + "\n"
-						+ "Geohash : " + Hash + "\n" + 
+						+ "Geohash : " + Hash + "\n" +
 						"									********************************** \n");
 			}
 		});
@@ -355,25 +361,24 @@ public class Controller implements Initializable {
 		afficheEspNom(App.Requete.getListeRechercheNom(), earth);
 
 
-
-
 		idSearch.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 
-				earth.getChildren().remove(1,earth.getChildren().size());
+				list.setVisible(false);
+				earth.getChildren().remove(1, earth.getChildren().size());
 
-				if(idNom.isSelected()){
-					if(idDate.isSelected()){
+				if (idNom.isSelected()) {
+					if (idDate.isSelected()) {
 
-					}else{
+					} else {
 						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
 						majLegende();
 						afficheEspNom(App.Requete.getListeRechercheNom(), earth);
 
 
 					}
-				}else{
+				} else {
 					App.Requete.creerRechercheZone(idEspece.getText(), idRegion.getText());
 					majLegende();
 
@@ -381,10 +386,41 @@ public class Controller implements Initializable {
 			}
 		});
 
+
+		subscene.addEventHandler(MouseEvent.ANY, event -> {
+			if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.isControlDown()) {
+				PickResult pickResult = event.getPickResult();
+				Point3D spaceCoord = pickResult.getIntersectedPoint();
+				Double x = spaceCoord.getX();
+				Double y = spaceCoord.getY();
+				Double z = spaceCoord.getZ();
+				double latCursor = SpaceCoordToGeoCoord(spaceCoord).getX();
+				double lonCursor = SpaceCoordToGeoCoord(spaceCoord).getY();
+				GeoHash.Location loc = new GeoHash.Location("selectedGeoHash", latCursor, lonCursor);
+				String Hash = GeoHash.GeoHashHelper.getGeohash(loc, 3);
+				App.Requete.creerRechercheZone("", Hash);
+				idConsole.setStyle("-fx-text-fill: black; -fx-font-size: 13px;");
+				for (App.RechercheZone rechercheZone : App.Requete.getListeRechercheZone()) {
+					idConsole.appendText("scientificName : " + rechercheZone.getScientificName() + " / " + "order : " + rechercheZone.getOrder() + " / " +
+							"superclass : " + rechercheZone.getSuperclass() + " / " + "recordedBy : " + rechercheZone.getRecordedBy() + " / " + "species : " + rechercheZone.getSpecies()
+							+ " \n");
+				}
+				list.setVisible(true);
+				ObservableList<String> items = FXCollections.observableArrayList("");
+				for (App.RechercheZone rechercheZone : App.Requete.getListeRechercheZone()) {
+					list.getItems().add(rechercheZone.getScientificName());
+				}
+				list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+						idEspece.setText(list.getSelectionModel().getSelectedItem().toString());
+					}
+				});
+			}
+		});
 	}
 
 	public void afficheEspNom (ArrayList< RechercheNom > listeRechercheNom, Group earth){
-
 
 
 		for(App.RechercheNom rechercheNom : listeRechercheNom) {

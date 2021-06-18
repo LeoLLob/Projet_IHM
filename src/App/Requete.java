@@ -193,6 +193,7 @@ public class Requete {
         
         listeRechercheNom.clear();
         String url = getURL(scientificName, precision);
+        System.out.println(url);
         JSONObject JsonRoot = readJsonFromUrl(url);
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
@@ -224,11 +225,14 @@ public class Requete {
     }
 
     // nombre de signalements par zone par intervalle de temps
-    public static void creerRechercheDate(String scientificName, int precision, String dateDebut, String dateFin, JSONObject JsonRoot){
+    public static void creerRechercheDate(String scientificName, int precision, String dateDebut, String dateFin){
         maxOccurence = Integer.MIN_VALUE;
         minOccurence = Integer.MAX_VALUE;
 
         listeRechercheDate.clear();
+        String url = getURLDate(scientificName, precision, dateDebut, dateFin);
+        JSONObject JsonRoot = readJsonFromUrl(url);
+
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
             JSONObject recherche = (JSONObject) object;
