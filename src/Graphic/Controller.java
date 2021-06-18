@@ -1,7 +1,6 @@
 package Graphic;
 
 import java.net.URL;
-
 import App.Requete;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
@@ -86,11 +85,6 @@ public class Controller implements Initializable {
 	private static final float TEXTURE_LON_OFFSET = 2.8f;
 
 
-	/*
-	private AutoCompletionBinding<String> autoCompletionBinding;
-	private String[] suggestions = {"salut", "yo", "ça va?"};
-	private Set<String> possibleSuggestions = new HashSet<>(Arrays.asList(suggestions));*/
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -156,10 +150,10 @@ public class Controller implements Initializable {
 					idSearch.disableProperty().bind(Bindings.createBooleanBinding(() -> 
 				    idEspece.getText().trim().isEmpty()));
 					if(idRegion.getText().trim().isEmpty() && idZone.isSelected()){
-					idConsole.appendText("Recherche incomplète : il manque le nom de la région !\n									********************************** \n");
-					idConsole.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+						idConsole.appendText("Recherche incomplète : il manque le nom de la région !\n									********************************** \n");
+						idConsole.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
 					}
-					idConsole.appendText("mis a jour\n");
+
 				}
 			});
 
@@ -172,10 +166,17 @@ public class Controller implements Initializable {
 				JSONArray Json = App.Requete.readJsonFromUrlListeNom(URL);
 				requete.listeNom(Json);
 				idEsp.getItems().addAll(requete.getListeNom());
+				idEsp.show();
 			}
 		});
-		
-		
+
+		idEsp.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				idEspece.setText(idEsp.getValue());
+			}
+		});
+
 		idRegion.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
