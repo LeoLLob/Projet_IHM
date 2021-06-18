@@ -16,10 +16,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Requete {
-    private ArrayList<RechercheNom> listeRechercheNom;
-    private ArrayList<RechercheDate> listeRechercheDate;
-    private ArrayList<RechercheZone> listeRechercheZone;
-    private ArrayList<String> listeNom;
+    private static ArrayList<RechercheNom> listeRechercheNom;
+    private static ArrayList<RechercheDate> listeRechercheDate;
+    private static ArrayList<RechercheZone> listeRechercheZone;
+    private static ArrayList<String> listeNom;
 
     public Requete(){
         this.listeRechercheNom = new ArrayList<>();
@@ -142,10 +142,11 @@ public class Requete {
         return new JSONArray(json);
     }
 
-    // nombre de signalements par zone par intervalle de temps
-    public void creerRechercheNom(String scientificName, int precision, String dateDebut, String dateFin, int intervalles){
-        String lien = "";
-        JSONObject JsonRoot = readJsonFromUrl(lien);
+
+    public void creerRechercheNom(String scientificName, int precision){
+        listeRechercheNom = new ArrayList<>();
+        String url = getURL(scientificName, precision);
+        JSONObject JsonRoot = readJsonFromUrl(url);
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
             JSONObject recherche = (JSONObject) object;
@@ -172,7 +173,9 @@ public class Requete {
         }
     }
 
+    // nombre de signalements par zone par intervalle de temps
     public void creerRechercheDate(String scientificName, int precision, String dateDebut, String dateFin, JSONObject JsonRoot){
+        listeRechercheDate = new ArrayList<>();
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
             JSONObject recherche = (JSONObject) object;
@@ -199,11 +202,13 @@ public class Requete {
         }
     }
 
-    public void creerRechercheZone(String geoHash, JSONObject JsonRoot){
+    public void creerRechercheZone(String scientificName, String geoHash){
+        listeRechercheZone = new ArrayList<>();
+        String url = getURLZone(scientificName, geoHash);
+        JSONObject JsonRoot = readJsonFromUrl(url);
         JSONArray resultatRecherche = JsonRoot.getJSONArray("results");
         for(Object object : resultatRecherche ) {
             JSONObject recherche = (JSONObject) object;
-            String scientificName = "";
             if(!recherche.isNull("scientificName")) {
                 scientificName = recherche.getString("scientificName");
             }
@@ -229,25 +234,14 @@ public class Requete {
         }
     }
 
-    public void listeNom(JSONArray JsonRoot){
+    public void listeNom(String chaine){
+        listeNom = new ArrayList<>();
+        String url = getURLNom(chaine);
+        JSONArray JsonRoot = readJsonFromUrlListeNom(url);
         for(Object Object : JsonRoot) {
             JSONObject recherche = (JSONObject) Object;
             String nom = recherche.getString("scientificName");
             listeNom.add(nom);
-        }
-    }
-
-
-    public static void main(String[] args){
-
-        Requete requete = new Requete();
-        Location location = new Location("", 42.89062500, 3.51562500);
-        String geoHash = GeoHashHelper.getGeohash(location,3);
-        String url =  requete.getURLNom("D");
-        JSONArray jsonRoot = requete.readJsonFromUrlListeNom(url);
-        requete.listeNom(jsonRoot);
-        for(String nom : requete.listeNom){
-            System.out.println(nom);
         }
     }
 }
