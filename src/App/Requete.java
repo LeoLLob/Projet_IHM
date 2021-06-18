@@ -20,6 +20,8 @@ public class Requete {
     private static ArrayList<RechercheDate> listeRechercheDate;
     private static ArrayList<RechercheZone> listeRechercheZone;
     private static ArrayList<String> listeNom;
+    private static int maxOccurence;
+    private static int minOccurence;
 
     public Requete(){
         this.listeRechercheNom = new ArrayList<>();
@@ -43,6 +45,14 @@ public class Requete {
 
     public static ArrayList<String> getListeNom() {
         return listeNom;
+    }
+
+    public int getMaxOccurence() {
+        return maxOccurence;
+    }
+
+    public int getMinOccurence() {
+        return minOccurence;
     }
 
     private static String readAll(Reader rd) throws IOException{
@@ -144,6 +154,9 @@ public class Requete {
 
 
     public static void creerRechercheNom(String scientificName, int precision){
+        maxOccurence = Integer.MIN_VALUE;
+        minOccurence = Integer.MAX_VALUE;
+        
         listeRechercheNom = new ArrayList<>();
         String url = getURL(scientificName, precision);
         JSONObject JsonRoot = readJsonFromUrl(url);
@@ -168,6 +181,9 @@ public class Requete {
             Object objectOccurence = recherche.getJSONObject("properties").getInt("n");
             int occurence = (int) objectOccurence;
 
+            if (occurence > maxOccurence) maxOccurence = occurence;
+            if (occurence < minOccurence) minOccurence = occurence;
+
             RechercheNom rechercheNom = new RechercheNom(scientificName, coordonnees, occurence, precision);
             listeRechercheNom.add(rechercheNom);
         }
@@ -175,6 +191,9 @@ public class Requete {
 
     // nombre de signalements par zone par intervalle de temps
     public static void creerRechercheDate(String scientificName, int precision, String dateDebut, String dateFin, JSONObject JsonRoot){
+        maxOccurence = Integer.MIN_VALUE;
+        minOccurence = Integer.MAX_VALUE;
+
         listeRechercheDate = new ArrayList<>();
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
@@ -196,6 +215,9 @@ public class Requete {
 
             Object objectOccurence = recherche.getJSONObject("properties").getInt("n");
             int occurence = (int) objectOccurence;
+
+            if (occurence > maxOccurence) maxOccurence = occurence;
+            if (occurence < minOccurence) minOccurence = occurence;
 
             RechercheDate rechercheDate = new RechercheDate(scientificName, coordonnees, occurence, precision, dateDebut, dateFin);
             listeRechercheDate.add(rechercheDate);
