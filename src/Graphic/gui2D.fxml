@@ -30,46 +30,46 @@
                   <Rectangle fx:id="rec2" arcHeight="5.0" arcWidth="5.0" fill="#fff921" height="50.0" layoutX="566.0" layoutY="336.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
                   <Rectangle fx:id="rec1" arcHeight="5.0" arcWidth="5.0" fill="#c6ff21" height="50.0" layoutX="566.0" layoutY="386.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
                   <Rectangle fx:id="rec0" arcHeight="5.0" arcWidth="5.0" fill="#7df81e" height="50.0" layoutX="566.0" layoutY="436.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <Label fx:id="legend7" layoutX="530.0" layoutY="131.0" text="&gt;140000">
+                  <TextField fx:id="legend7" alignment="CENTER_RIGHT" layoutX="516.0" layoutY="128.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="140000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="legend6" layoutX="535.0" layoutY="181.0" text="120000">
+                  </TextField>
+                  <TextField fx:id="legend6" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="178.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="120000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="legend5" layoutX="535.0" layoutY="231.0" text="100000">
+                  </TextField>
+                  <TextField fx:id="legend5" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="228.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="100000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="legend4" layoutX="537.0" layoutY="281.0" text="80000">
+                  </TextField>
+                  <TextField fx:id="legend4" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="278.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="80000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="legend3" layoutX="537.0" layoutY="331.0" text="60000">
+                  </TextField>
+                  <TextField fx:id="legend3" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="328.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="60000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="legend2" layoutX="537.0" layoutY="381.0" text="40000">
+                  </TextField>
+                  <TextField fx:id="legend2" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="378.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="40000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="legend1" layoutX="537.0" layoutY="431.0" text="20000">
+                  </TextField>
+                  <TextField fx:id="legend1" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="428.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="20000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="legend0" layoutX="559.0" layoutY="475.0" text="0">
+                  </TextField>
+                  <TextField fx:id="legend0" alignment="CENTER_RIGHT" layoutX="524.0" layoutY="475.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="0">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
-                  </Label>
+                  </TextField>
                     </children>
                 </Pane>
                 <Slider fx:id="idSlider" blockIncrement="1.0" layoutX="756.0" layoutY="500.0" majorTickUnit="1.0" max="12.0" min="1.0" minorTickCount="0" prefHeight="63.0" prefWidth="190.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
