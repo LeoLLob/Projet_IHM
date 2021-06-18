@@ -79,6 +79,41 @@ public class Requete {
         return null;
     }
 
+    public static void startApp(){
+        JSONObject JsonRoot = getStartJSon("src/Selachii.json");
+        maxOccurence = Integer.MIN_VALUE;
+        minOccurence = Integer.MAX_VALUE;
+
+        listeRechercheNom = new ArrayList<>();
+        JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
+        for(Object object : resultatRecherche ) {
+            JSONObject recherche = (JSONObject) object;
+            ArrayList<Point2D> coordonnees = new ArrayList<>();
+            JSONArray fauxJsonCoords = recherche.getJSONObject("geometry").getJSONArray("coordinates");
+            for(Object fauxObjectPoint2D : fauxJsonCoords){
+                JSONArray ArrayPoint2D = (JSONArray) fauxObjectPoint2D;
+                for (Object objectPoint2D : ArrayPoint2D){
+                    JSONArray jsonPoint2D = (JSONArray) objectPoint2D;
+                    double x = jsonPoint2D.getDouble(0);
+                    double y = jsonPoint2D.getDouble(1);
+
+                    Point2D point2D = new Point2D(x,y);
+                    coordonnees.add(point2D);
+                }
+            }
+
+
+            Object objectOccurence = recherche.getJSONObject("properties").getInt("n");
+            int occurence = (int) objectOccurence;
+
+            if (occurence > maxOccurence) maxOccurence = occurence;
+            if (occurence < minOccurence) minOccurence = occurence;
+
+            RechercheNom rechercheNom = new RechercheNom("Selachii", coordonnees, occurence, 3);
+            listeRechercheNom.add(rechercheNom);
+        }
+    }
+
     public static String getURL(String nomScientifique, int precision){
         String url = "https://api.obis.org/v3/occurrence/grid/" + precision +"?scientificname=" + nomScientifique;
         return url;

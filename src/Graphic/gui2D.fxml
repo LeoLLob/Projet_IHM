@@ -22,50 +22,7 @@
                 <Pane fx:id="pane3D" layoutX="149.0" layoutY="11.0" prefHeight="572.0" prefWidth="600.0" style="-fx-background-color: #DCDCDC#DCDCDC;">
                     <children>
                         <Separator layoutX="597.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="670.0" prefWidth="5.0" />
-                  <Rectangle fx:id="rec7" arcHeight="5.0" arcWidth="5.0" fill="#cc0000" height="50.0" layoutX="566.0" layoutY="86.0" smooth="false" stroke="BLACK" strokeWidth="0.0" width="20.0" />
-                  <Rectangle fx:id="rec6" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="50.0" layoutX="566.0" layoutY="136.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <Rectangle fx:id="rec5" arcHeight="5.0" arcWidth="5.0" fill="#fc6524" height="50.0" layoutX="566.0" layoutY="186.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <Rectangle fx:id="rec4" arcHeight="5.0" arcWidth="5.0" fill="#ff9421" height="50.0" layoutX="566.0" layoutY="236.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <Rectangle fx:id="rec3" arcHeight="5.0" arcWidth="5.0" fill="#ffc921" height="50.0" layoutX="566.0" layoutY="286.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <Rectangle fx:id="rec2" arcHeight="5.0" arcWidth="5.0" fill="#fff921" height="50.0" layoutX="566.0" layoutY="336.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <Rectangle fx:id="rec1" arcHeight="5.0" arcWidth="5.0" fill="#c6ff21" height="50.0" layoutX="566.0" layoutY="386.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <Rectangle fx:id="rec0" arcHeight="5.0" arcWidth="5.0" fill="#7df81e" height="50.0" layoutX="566.0" layoutY="436.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-                  <TextField fx:id="legend7" alignment="CENTER_RIGHT" layoutX="516.0" layoutY="128.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="140000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="legend6" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="178.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="120000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="legend5" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="228.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="100000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="legend4" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="278.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="80000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="legend3" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="328.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="60000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="legend2" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="378.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="40000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="legend1" alignment="CENTER_RIGHT" layoutX="523.0" layoutY="428.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="20000">
-                     <font>
-                        <Font name="Arial" size="9.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="legend0" alignment="CENTER_RIGHT" layoutX="524.0" layoutY="475.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: #DCDCDC#DCDCDC;" text="0">
+                  <TextField fx:id="legend2" alignment="CENTER_RIGHT" layoutX="529.0" layoutY="374.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="40000">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
@@ -128,6 +85,49 @@
                <font>
                   <Font name="Arial" size="13.0" />
                </font></TextField>
+            <Rectangle fx:id="rec7" arcHeight="5.0" arcWidth="5.0" fill="#cc0000" height="50.0" layoutX="720.0" layoutY="90.0" smooth="false" stroke="BLACK" strokeWidth="0.0" width="20.0" />
+            <Rectangle fx:id="rec6" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="50.0" layoutX="720.0" layoutY="140.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle fx:id="rec5" arcHeight="5.0" arcWidth="5.0" fill="#fc6524" height="50.0" layoutX="720.0" layoutY="190.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle fx:id="rec4" arcHeight="5.0" arcWidth="5.0" fill="#ff9421" height="50.0" layoutX="720.0" layoutY="240.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle fx:id="rec3" arcHeight="5.0" arcWidth="5.0" fill="#ffc921" height="50.0" layoutX="720.0" layoutY="290.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle fx:id="rec2" arcHeight="5.0" arcWidth="5.0" fill="#fff921" height="50.0" layoutX="720.0" layoutY="340.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle fx:id="rec1" arcHeight="5.0" arcWidth="5.0" fill="#c6ff21" height="50.0" layoutX="720.0" layoutY="390.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle fx:id="rec0" arcHeight="5.0" arcWidth="5.0" fill="#7df81e" height="50.0" layoutX="720.0" layoutY="440.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <TextField fx:id="legend7" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="135.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;" text="140000">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="legend6" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="187.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="120000">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="legend5" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="237.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="100000">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="legend4" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="287.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="80000">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="legend1" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="437.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="20000">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="legend0" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="484.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="0">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="legend3" alignment="CENTER_RIGHT" layoutX="675.0" layoutY="337.0" prefHeight="17.0" prefWidth="43.0" style="-fx-background-color: GREY;" text="60000">
+               <font>
+                  <Font name="Arial" size="9.0" />
+               </font>
+            </TextField>
             </children>
         </Pane>
     </children>

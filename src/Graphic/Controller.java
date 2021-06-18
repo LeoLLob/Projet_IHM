@@ -23,7 +23,6 @@ import javafx.scene.*;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -71,28 +70,28 @@ public class Controller implements Initializable {
 	private TextField idEspece;
 
 	@FXML
-	private Label legend0;
+	private TextField legend0;
 
 	@FXML
-	private Label legend1;
+	private TextField legend1;
 
 	@FXML
-	private Label legend2;
+	private TextField legend2;
 
 	@FXML
-	private Label legend3;
+	private TextField legend3;
 
 	@FXML
-	private Label legend4;
+	private TextField legend4;
 
 	@FXML
-	private Label legend5;
+	private TextField legend5;
 
 	@FXML
-	private Label legend6;
+	private TextField legend6;
 
 	@FXML
-	private Label legend7;
+	private TextField legend7;
 
 	@FXML
 	private Rectangle rec0;
@@ -330,15 +329,24 @@ public class Controller implements Initializable {
 			}
 		});
 
+		App.Requete.startApp();
+		afficheEspNom(App.Requete.getListeRechercheNom(), earth);
+
+
+
+
 		idSearch.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+
+				earth.getChildren().remove(1,earth.getChildren().size());
+
 				if(idNom.isSelected()){
 					if(idDate.isSelected()){
 
 					}else{
 						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
-						idConsole.clear();
+
 						afficheEspNom(App.Requete.getListeRechercheNom(), earth);
 
 					}
@@ -354,6 +362,7 @@ public class Controller implements Initializable {
 	}
 
 	public void afficheEspNom (ArrayList< RechercheNom > listeRechercheNom, Group earth){
+
 
 
 		final PhongMaterial rec0Material = new PhongMaterial();
@@ -376,11 +385,10 @@ public class Controller implements Initializable {
 		for(App.RechercheNom rechercheNom : listeRechercheNom) {
 
 			AddQuadrilateral(earth,
-					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(3).getX(), (float) rechercheNom.getCoord().get(3).getY()),
-					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(0).getX(), (float) rechercheNom.getCoord().get(0).getY()),
-
-					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(1).getX(), (float) rechercheNom.getCoord().get(1).getY()),
-					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(2).getX(), (float) rechercheNom.getCoord().get(2).getY()),
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(3).getY(), (float) rechercheNom.getCoord().get(3).getX()),
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(0).getY(), (float) rechercheNom.getCoord().get(0).getX()),
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(1).getY(), (float) rechercheNom.getCoord().get(1).getX()),
+					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(2).getY(), (float) rechercheNom.getCoord().get(2).getX()),
 					rec0Material);
 
 		}
@@ -421,7 +429,7 @@ public class Controller implements Initializable {
 						* Math.cos(Math.toRadians(lat_cor))*1.01,
 				-Math.sin(Math.toRadians(lat_cor))*1.01,
 				Math.cos(Math.toRadians(lon_cor))
-						* Math.cos(Math.toRadians(lat_cor))*1.01 + 2);
+						* Math.cos(Math.toRadians(lat_cor))*1.01);
 	}
 
 
@@ -445,10 +453,10 @@ public class Controller implements Initializable {
 
 	private void AddQuadrilateral(Group parent, Point3D topRight, Point3D bottomRight, Point3D bottomLeft, Point3D topLeft, PhongMaterial material) {
 		final TriangleMesh triangleMesh = new TriangleMesh();
-		final float[] points = { 
-				(float)topRight.getX(), (float)topRight.getY(), (float)topRight.getZ(),
-				(float)topLeft.getX(), (float)topLeft.getY(), (float)topLeft.getZ(),
+		final float[] points = {
 				(float)bottomLeft.getX(), (float)bottomLeft.getY(), (float)bottomLeft.getZ(),
+				(float)topLeft.getX(), (float)topLeft.getY(), (float)topLeft.getZ(),
+				(float)topRight.getX(), (float)topRight.getY(), (float)topRight.getZ(),
 				(float)bottomRight.getX(), (float)bottomRight.getY(), (float)bottomRight.getZ()};
 		final float[] texCoords = 
 			{
