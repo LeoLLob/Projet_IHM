@@ -1,6 +1,8 @@
 package Graphic;
 
 import java.net.URL;
+
+import App.Requete;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -36,6 +38,7 @@ import javafx.scene.transform.Translate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import org.json.JSONArray;
 
 public class Controller implements Initializable {
 
@@ -156,8 +159,21 @@ public class Controller implements Initializable {
 					idConsole.appendText("Recherche incomplète : il manque le nom de la région !\n									********************************** \n");
 					idConsole.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
 					}
+					idConsole.appendText("mis a jour\n");
 				}
 			});
+
+		idEspece.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+				idEsp.getItems().clear();
+				App.Requete requete = new Requete();
+				String URL = App.Requete.getURLNom(idEspece.getText());
+				JSONArray Json = App.Requete.readJsonFromUrlListeNom(URL);
+				requete.listeNom(Json);
+				idEsp.getItems().addAll(requete.getListeNom());
+			}
+		});
 		
 		
 		idRegion.setOnAction(new EventHandler<ActionEvent>() {
