@@ -29,6 +29,22 @@ public class Requete {
 
     }
 
+    public ArrayList<RechercheDate> getListeRechercheDate() {
+        return listeRechercheDate;
+    }
+
+    public ArrayList<RechercheNom> getListeRechercheNom() {
+        return listeRechercheNom;
+    }
+
+    public ArrayList<RechercheZone> getListeRechercheZone() {
+        return listeRechercheZone;
+    }
+
+    public ArrayList<String> getListeNom() {
+        return listeNom;
+    }
+
     private static String readAll(Reader rd) throws IOException{
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -126,7 +142,10 @@ public class Requete {
         return new JSONArray(json);
     }
 
-    public void creerRechercheNom(String scientificName, int precision, JSONObject JsonRoot){
+    // nombre de signalements par zone par intervalle de temps
+    public void creerRechercheNom(String scientificName, int precision, String dateDebut, String dateFin, int intervalles){
+        String lien = "";
+        JSONObject JsonRoot = readJsonFromUrl(lien);
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {
             JSONObject recherche = (JSONObject) object;
@@ -219,7 +238,7 @@ public class Requete {
     }
 
 
-    public  static void main(String[] args){
+    public static void main(String[] args){
 
         Requete requete = new Requete();
         Location location = new Location("", 42.89062500, 3.51562500);
