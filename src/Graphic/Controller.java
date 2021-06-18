@@ -219,6 +219,9 @@ public class Controller implements Initializable {
 					}
 				}else{
 					App.Requete.creerRechercheZone(idEspece.getText(), idRegion.getText());
+					for(App.RechercheZone rechercheZone : App.Requete.getListeRechercheZone()){
+						idConsole.appendText(rechercheZone.getScientificName() + "\n");
+					}
 				}
 			}
 		});
