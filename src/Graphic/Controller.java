@@ -25,6 +25,8 @@ import javafx.scene.*;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -370,7 +372,7 @@ public class Controller implements Initializable {
 
 				if (idNom.isSelected()) {
 					if (idDate.isSelected()) {
-
+						
 					} else {
 						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
 						majLegende();
