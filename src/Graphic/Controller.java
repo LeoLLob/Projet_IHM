@@ -10,6 +10,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import com.interactivemesh.jfx.importer.ImportException;
@@ -100,6 +101,9 @@ public class Controller implements Initializable {
 	private TextField legend7;
 
 	@FXML
+	private TextField legend8;
+
+	@FXML
 	private Rectangle rec0;
 
 	@FXML
@@ -156,6 +160,7 @@ public class Controller implements Initializable {
 		legend5.setEditable(false);
 		legend6.setEditable(false);
 		legend7.setEditable(false);
+		legend8.setEditable(false);
 
 		idPause.setDisable(true);
 		idReset.setDisable(true);
@@ -257,10 +262,14 @@ public class Controller implements Initializable {
 			public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 				idEsp.getItems().clear();
 				App.Requete.listeNom(idEspece.getText());
-				idEsp.getItems().addAll(App.Requete.getListeNom());
-				idEsp.show();
+				if(!App.Requete.getListeNom().isEmpty()) {
+					idEsp.getItems().addAll(App.Requete.getListeNom());
+					idEsp.show();
+				}
 			}
 		});
+
+
 
 		idEsp.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -374,7 +383,11 @@ public class Controller implements Initializable {
 				earth.getChildren().remove(1, earth.getChildren().size());
 
 				if (idNom.isSelected()) {
-					if (idDate.isSelected()) {
+					if (idDate.isSelected() && idDateBox.getValue() != null && idDateBox1.getValue() != null
+							&& idDateBox.getValue().compareTo(idDateBox1.getValue()) < 0) {
+						App.Requete.creerRechercheDate(idEspece.getText(), (int) idSlider.getValue(), idDateBox.getValue().toString(), idDateBox1.getValue().toString());
+						majLegende();
+						afficheEspDate(App.Requete.getListeRechercheDate(), earth);
 
 					} else {
 						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
@@ -399,30 +412,27 @@ public class Controller implements Initializable {
 					idStart.setDisable(true);
 					idPause.setDisable(false);
 					int annee = idDateBox.getValue().getYear();
-					earth.getChildren().remove(1, earth.getChildren().size());
+
 
 					while(annee <= idDateBox1.getValue().getYear() - 5)
 					{
 
-						String debut = annee + "-" + idDateBox.getValue().getMonthValue() + "-" + idDateBox.getValue().getDayOfMonth();
+						String debut = date(idDateBox.getValue(), annee);
 						System.out.println(debut);
 						annee += 5;
-						String fin = annee + "-" + idDateBox.getValue().getMonthValue() + "-" + idDateBox.getValue().getDayOfMonth();
+						String fin = date(idDateBox.getValue(), annee);
 						System.out.println(fin);
 
+						earth.getChildren().remove(1, earth.getChildren().size());
 						App.Requete.creerRechercheDate(idEspece.getText(), (int) idSlider.getValue(), debut, fin);
-						System.out.println("test1 :" + App.Requete.getListeRechercheDate().get(0).getScientificName());
 						majLegende();
 						afficheEspDate(App.Requete.getListeRechercheDate(), earth);
-						System.out.println("test2");
 
 						int tick = 0;
 						while(tick < 10000)
 						{
 							tick++;
 						}
-
-
 					}
 					idStart.setDisable(false);
 				}
@@ -457,6 +467,8 @@ public class Controller implements Initializable {
 					@Override
 					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 						idEspece.setText(list.getSelectionModel().getSelectedItem().toString());
+						list.getItems().clear();
+						list.setVisible(false);
 					}
 				});
 			}
@@ -505,15 +517,31 @@ public class Controller implements Initializable {
 
 	private void majLegende()
 	{
-		int ecart = (App.Requete.getMaxOccurence() - App.Requete.getMinOccurence()) / 8;
-		legend0.setText(Integer.toString(App.Requete.getMinOccurence()));
-		legend1.setText(Integer.toString(App.Requete.getMinOccurence() + 1 * ecart));
-		legend2.setText(Integer.toString(App.Requete.getMinOccurence() + 2 * ecart));
-		legend3.setText(Integer.toString(App.Requete.getMinOccurence() + 3 * ecart));
-		legend4.setText(Integer.toString(App.Requete.getMinOccurence() + 4 * ecart));
-		legend5.setText(Integer.toString(App.Requete.getMinOccurence() + 5 * ecart));
-		legend6.setText(Integer.toString(App.Requete.getMinOccurence() + 6 * ecart));
-		legend7.setText(Integer.toString(App.Requete.getMinOccurence() + 7 * ecart));
+		int ecart = 0;
+		if((App.Requete.getMaxOccurence() == Integer.MIN_VALUE))
+		{
+			legend0.setText(Integer.toString(0));
+			legend1.setText(Integer.toString(0));
+			legend2.setText(Integer.toString(0));
+			legend3.setText(Integer.toString(0));
+			legend4.setText(Integer.toString(0));
+			legend5.setText(Integer.toString(0));
+			legend6.setText(Integer.toString(0));
+			legend7.setText(Integer.toString(0));
+			legend8.setText(Integer.toString(0));
+		}
+		else {
+			ecart = (App.Requete.getMaxOccurence() - App.Requete.getMinOccurence()) / 8;
+			legend0.setText(Integer.toString(App.Requete.getMinOccurence()));
+			legend1.setText(Integer.toString(App.Requete.getMinOccurence() + 1 * ecart));
+			legend2.setText(Integer.toString(App.Requete.getMinOccurence() + 2 * ecart));
+			legend3.setText(Integer.toString(App.Requete.getMinOccurence() + 3 * ecart));
+			legend4.setText(Integer.toString(App.Requete.getMinOccurence() + 4 * ecart));
+			legend5.setText(Integer.toString(App.Requete.getMinOccurence() + 5 * ecart));
+			legend6.setText(Integer.toString(App.Requete.getMinOccurence() + 6 * ecart));
+			legend7.setText(Integer.toString(App.Requete.getMinOccurence() + 7 * ecart));
+			legend8.setText(Integer.toString(App.Requete.getMaxOccurence()));
+		}
 	}
 
 	private Color choixCouleur(int occurence)
@@ -528,6 +556,21 @@ public class Controller implements Initializable {
 		else   return (Color) rec7.getFill();
 
 	}
+
+	private String date(LocalDate datePicked, int annee)
+	{
+		String date = new String();
+		if (datePicked.getMonthValue() < 10 && datePicked.getDayOfMonth() < 10)
+			date = annee + "-0" + datePicked.getMonthValue() + "-0" + datePicked.getDayOfMonth();
+		else if (datePicked.getMonthValue() < 10)
+			date = annee + "-0" + datePicked.getMonthValue() + "-" + datePicked.getDayOfMonth();
+		else if (datePicked.getDayOfMonth() < 10)
+			date = annee + "-" + datePicked.getMonthValue() + "-0" + datePicked.getDayOfMonth();
+		else
+			date = annee + "-" + datePicked.getMonthValue() + "-" + datePicked.getDayOfMonth();
+		return date;
+	}
+
 
 	public Cylinder createLine(Point3D origin, Point3D target) {
 		Point3D yAxis = new Point3D(0, 1, 0);
