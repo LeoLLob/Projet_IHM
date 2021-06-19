@@ -411,16 +411,18 @@ public class Controller implements Initializable {
 				{
 					idStart.setDisable(true);
 					idPause.setDisable(false);
-					int annee = idDateBox.getValue().getYear();
+
+					LocalDate localDate = idDateBox.getValue();
+					localDate = localDate.withYear(localDate.getYear()+5);
 
 
-					while(annee <= idDateBox1.getValue().getYear() - 5)
+					while(localDate.getYear() <= idDateBox1.getValue().getYear() - 5)
 					{
 
-						String debut = date(idDateBox.getValue(), annee);
+						String debut = localDate.toString();
 						System.out.println(debut);
-						annee += 5;
-						String fin = date(idDateBox.getValue(), annee);
+						localDate = localDate.withYear(localDate.getYear()+5);
+						String fin = localDate.toString();
 						System.out.println(fin);
 
 						earth.getChildren().remove(1, earth.getChildren().size());
@@ -556,21 +558,6 @@ public class Controller implements Initializable {
 		else   return (Color) rec7.getFill();
 
 	}
-
-	private String date(LocalDate datePicked, int annee)
-	{
-		String date = new String();
-		if (datePicked.getMonthValue() < 10 && datePicked.getDayOfMonth() < 10)
-			date = annee + "-0" + datePicked.getMonthValue() + "-0" + datePicked.getDayOfMonth();
-		else if (datePicked.getMonthValue() < 10)
-			date = annee + "-0" + datePicked.getMonthValue() + "-" + datePicked.getDayOfMonth();
-		else if (datePicked.getDayOfMonth() < 10)
-			date = annee + "-" + datePicked.getMonthValue() + "-0" + datePicked.getDayOfMonth();
-		else
-			date = annee + "-" + datePicked.getMonthValue() + "-" + datePicked.getDayOfMonth();
-		return date;
-	}
-
 
 	public Cylinder createLine(Point3D origin, Point3D target) {
 		Point3D yAxis = new Point3D(0, 1, 0);
