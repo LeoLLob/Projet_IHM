@@ -40,15 +40,11 @@
                         <Font name="Arial" size="14.0" />
                     </font>
                 </TextArea>
-                <TextField fx:id="idDuree" layoutX="755.0" layoutY="372.0" prefHeight="33.0" prefWidth="184.0" promptText="Durée en mois">
-               <font>
-                  <Font name="Arial" size="13.0" />
-               </font></TextField>
                 <Separator layoutX="749.0" layoutY="446.0" prefHeight="25.0" prefWidth="205.0" />
                 <Separator layoutX="748.0" layoutY="572.0" prefHeight="18.0" prefWidth="205.0" />
-                <Label layoutX="759.0" layoutY="341.0" prefHeight="19.0" prefWidth="61.0" text="Départ :  ">
+                <Label alignment="CENTER" layoutX="759.0" layoutY="341.0" prefHeight="19.0" prefWidth="61.0" text="Du :">
                     <font>
-                        <Font name="Arial" size="15.0" />
+                        <Font name="Arial" size="14.0" />
                     </font>
                 </Label>
                 <Separator layoutX="750.0" layoutY="138.0" prefHeight="18.0" prefWidth="205.0" />
@@ -137,6 +133,12 @@
             <Button fx:id="idPause" layoutX="250.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Pause" />
             <Button fx:id="idReset" layoutX="320.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Reset" />
             <ListView fx:id="list" layoutX="150.0" layoutY="12.0" prefHeight="200.0" prefWidth="200.0" />
+            <DatePicker fx:id="idDateBox1" layoutX="820.0" layoutY="377.0" prefHeight="26.0" prefWidth="122.0" />
+            <Label alignment="CENTER" layoutX="760.0" layoutY="379.0" prefHeight="19.0" prefWidth="61.0" text="Au :">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
     </children>

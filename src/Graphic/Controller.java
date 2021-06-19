@@ -2,6 +2,7 @@ package Graphic;
 
 import java.net.URL;
 
+import App.RechercheDate;
 import App.RechercheNom;
 import App.Requete;
 import javafx.beans.binding.Bindings;
@@ -57,7 +58,7 @@ public class Controller implements Initializable {
 	private DatePicker idDateBox;
 
 	@FXML
-	private TextField idDuree;
+	private DatePicker idDateBox1;
 
 	@FXML
 	private TextField idInterv;
@@ -156,11 +157,14 @@ public class Controller implements Initializable {
 		legend6.setEditable(false);
 		legend7.setEditable(false);
 
+		idPause.setDisable(true);
+		idReset.setDisable(true);
+
 		idConsole.setEditable(false);
 
 		idDateBox.setDisable(true);
 		idInterv.setDisable(true);
-		idDuree.setDisable(true);
+		idDateBox1.setDisable(true);
 
 		list.setVisible(false);
 
@@ -200,11 +204,11 @@ public class Controller implements Initializable {
 				if (idDate.isSelected()) {
 					idDateBox.setDisable(false);
 					idInterv.setDisable(false);
-					idDuree.setDisable(false);
+					idDateBox1.setDisable(false);
 				} else {
 					idDateBox.setDisable(true);
 					idInterv.setDisable(true);
-					idDuree.setDisable(true);
+					idDateBox1.setDisable(true);
 				}
 			}
 		});
@@ -215,7 +219,7 @@ public class Controller implements Initializable {
 				if (idZone.isSelected()) {
 					idDate.setDisable(true);
 					idDateBox.setDisable(true);
-					idDuree.setDisable(true);
+					idDateBox1.setDisable(true);
 					idInterv.setDisable(true);
 					idSlider.setDisable(true);
 					idRegion.setDisable(false);
@@ -272,7 +276,6 @@ public class Controller implements Initializable {
 						idRegion.getText().trim().isEmpty()));
 			}
 		});
-
 
 		//Importation de la Terre
 		ObjModelImporter objImporter = new ObjModelImporter();
@@ -388,6 +391,44 @@ public class Controller implements Initializable {
 			}
 		});
 
+		idStart.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (idDateBox.getValue() != null && idDateBox1.getValue() != null && idDateBox.getValue().compareTo(idDateBox1.getValue()) < 0)
+				{
+					idStart.setDisable(true);
+					idPause.setDisable(false);
+					int annee = idDateBox.getValue().getYear();
+					earth.getChildren().remove(1, earth.getChildren().size());
+
+					while(annee <= idDateBox1.getValue().getYear() - 5)
+					{
+
+						String debut = annee + "-" + idDateBox.getValue().getMonthValue() + "-" + idDateBox.getValue().getDayOfMonth();
+						System.out.println(debut);
+						annee += 5;
+						String fin = annee + "-" + idDateBox.getValue().getMonthValue() + "-" + idDateBox.getValue().getDayOfMonth();
+						System.out.println(fin);
+
+						App.Requete.creerRechercheDate(idEspece.getText(), (int) idSlider.getValue(), debut, fin);
+						System.out.println("test1 :" + App.Requete.getListeRechercheDate().get(0).getScientificName());
+						majLegende();
+						afficheEspDate(App.Requete.getListeRechercheDate(), earth);
+						System.out.println("test2");
+
+						int tick = 0;
+						while(tick < 10000)
+						{
+							tick++;
+						}
+
+
+					}
+					idStart.setDisable(false);
+				}
+			}
+		});
+
 
 		subscene.addEventHandler(MouseEvent.ANY, event -> {
 			if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.isControlDown()) {
@@ -437,6 +478,26 @@ public class Controller implements Initializable {
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(0).getY(), (float) rechercheNom.getCoord().get(0).getX()),
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(1).getY(), (float) rechercheNom.getCoord().get(1).getX()),
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(2).getY(), (float) rechercheNom.getCoord().get(2).getX()),
+					phongMaterial);
+
+		}
+	}
+
+	public void afficheEspDate (ArrayList<RechercheDate> listeRechercheDate, Group earth){
+
+
+		for(App.RechercheDate rechercheDate : listeRechercheDate) {
+
+			int occurence = rechercheDate.getOccurence();
+			Color color = choixCouleur(occurence);
+			PhongMaterial phongMaterial = new PhongMaterial();
+			phongMaterial.setDiffuseColor(color);
+
+			AddQuadrilateral(earth,
+					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(3).getY(), (float) rechercheDate.getCoord().get(3).getX()),
+					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(0).getY(), (float) rechercheDate.getCoord().get(0).getX()),
+					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(1).getY(), (float) rechercheDate.getCoord().get(1).getX()),
+					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(2).getY(), (float) rechercheDate.getCoord().get(2).getX()),
 					phongMaterial);
 
 		}
