@@ -1,14 +1,12 @@
 package App;
 
-import GeoHash.GeoHash;
-
 public class RechercheZone {
-    private String geoHash;
-    private String scientificName;
-    private String order;
-    private String superclass;
-    private String recordedBy;
-    private String species;
+    private final String geoHash;
+    private final String scientificName;
+    private final String order;
+    private final String superclass;
+    private final String recordedBy;
+    private final String species;
 
     public RechercheZone(String geoHash, String scientificName, String order, String superclass, String recordedBy, String species){
         this.geoHash = geoHash;

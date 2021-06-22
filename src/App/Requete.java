@@ -1,6 +1,6 @@
 package App;
 
-import GeoHash.*;
+
 import org.json.*;
 
 
@@ -16,18 +16,18 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Requete {
-    private static ArrayList<RechercheNom> listeRechercheNom = new ArrayList<RechercheNom>();
-    private static ArrayList<RechercheDate> listeRechercheDate = new ArrayList<RechercheDate>();
-    private static ArrayList<RechercheZone> listeRechercheZone = new ArrayList<RechercheZone>();;
-    private static ArrayList<String> listeNom = new ArrayList<String>();
+    private static ArrayList<RechercheNom> listeRechercheNom = new ArrayList<>();
+    private static ArrayList<RechercheDate> listeRechercheDate = new ArrayList<>();
+    private static ArrayList<RechercheZone> listeRechercheZone = new ArrayList<>();
+    private static ArrayList<String> listeNom = new ArrayList<>();
     private static int maxOccurence;
     private static int minOccurence;
 
     public Requete(){
-        this.listeRechercheNom = new ArrayList<>();
-        this.listeRechercheDate = new ArrayList<>();
-        this.listeRechercheZone = new ArrayList<>();
-        this.listeNom = new ArrayList<>();
+        listeRechercheNom = new ArrayList<>();
+        listeRechercheDate = new ArrayList<>();
+        listeRechercheZone = new ArrayList<>();
+        listeNom = new ArrayList<>();
 
     }
 
@@ -114,30 +114,24 @@ public class Requete {
     }
 
     public static String getURL(String nomScientifique, int precision){
-        String url = "https://api.obis.org/v3/occurrence/grid/" + precision +"?scientificname=" + nomScientifique;
-        return url;
+        return "https://api.obis.org/v3/occurrence/grid/" + precision +"?scientificname=" + nomScientifique;
     }
 
     public static String getURLDate(String nomScientifique, int precision, String dateDebut, String dateFin){
-        String url = "https://api.obis.org/v3/occurrence/grid/" + precision + "?scientificname=" + nomScientifique +
+        return "https://api.obis.org/v3/occurrence/grid/" + precision + "?scientificname=" + nomScientifique +
                 "&startdate=" + dateDebut + "&enddate=" + dateFin;
-        return url;
     }
 
     public static String getURLZone(String nomScientifique, String geohash){
         if(nomScientifique.isEmpty()) {
-            String url = "https://api.obis.org/v3/occurrence?geometry=" +geohash;
-            return url;
+            return "https://api.obis.org/v3/occurrence?geometry=" +geohash;
         }else{
-            String url = "https://api.obis.org/v3/occurrence?scientificname=" + nomScientifique + "&geometry=" +geohash;
-            return url;
+            return "https://api.obis.org/v3/occurrence?scientificname=" + nomScientifique + "&geometry=" +geohash;
         }
     }
 
     public static String getURLNom(String chaine){
-
-        String url = "https://api.obis.org/v3/taxon/complete/verbose/"  + chaine;
-        return url;
+        return "https://api.obis.org/v3/taxon/complete/verbose/"  + chaine;
     }
 
     public static JSONObject readJsonFromUrl(String url) {

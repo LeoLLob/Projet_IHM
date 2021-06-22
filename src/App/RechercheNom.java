@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import java.util.ArrayList;
 
 public class RechercheNom {
-    private String scientificName;
-    private ArrayList<Point2D> coord;
-    private int occurence;
-    private int precision;
+    private final String scientificName;
+    private final ArrayList<Point2D> coord;
+    private final int occurence;
+    private final int precision;
 
     public RechercheNom(String scientificName, ArrayList<Point2D> coord, int occurence, int precision){
         this.scientificName = scientificName;

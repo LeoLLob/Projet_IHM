@@ -191,7 +191,7 @@ public class Controller implements Initializable {
 
 		//Events
 
-		idDate.setOnAction(new EventHandler<ActionEvent>() {
+		idDate.setOnAction(new EventHandler<>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				if (idDate.isSelected()) {
@@ -207,7 +207,7 @@ public class Controller implements Initializable {
 		});
 
 
-		idEspece.textProperty().addListener(new ChangeListener<String>() {
+		idEspece.textProperty().addListener(new ChangeListener<>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 				idEsp.getItems().clear();
@@ -222,7 +222,7 @@ public class Controller implements Initializable {
 			}
 		});
 
-		idEsp.setOnAction(new EventHandler<ActionEvent>() {
+		idEsp.setOnAction(new EventHandler<>() {
 			@Override
 			public void handle(ActionEvent event) {
 				String nom = idEsp.getSelectionModel().getSelectedItem();
@@ -230,7 +230,7 @@ public class Controller implements Initializable {
 			}
 		});
 
-		idSearch.setOnAction(new EventHandler<ActionEvent>() {
+		idSearch.setOnAction(new EventHandler<>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 
@@ -266,7 +266,7 @@ public class Controller implements Initializable {
 		});
 
 
-		idStart.setOnAction(new EventHandler<ActionEvent>() {
+		idStart.setOnAction(new EventHandler<>() {
 			@Override
 			public void handle(ActionEvent event) {
 				if (idDateBox.getValue() != null && idDateBox1.getValue() != null && idDateBox1.getValue().getYear()-idDateBox.getValue().getYear() >= 5) {
@@ -355,14 +355,14 @@ public class Controller implements Initializable {
 			}
 		});
 
-		idPause.setOnAction(new EventHandler<ActionEvent>() {
+		idPause.setOnAction(new EventHandler<>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
 				if(!pause){
-					pause = !pause;
+					pause = true;
 					idPause.setText("Resume");
 				}else{
-					pause = !pause;
+					pause = false;
 					idPause.setText("Pause");
 				}
 			}
@@ -443,9 +443,6 @@ public class Controller implements Initializable {
 				list.getItems().clear();
 				PickResult pickResult = event.getPickResult();
 				Point3D spaceCoord = pickResult.getIntersectedPoint();
-				Double x = spaceCoord.getX();
-				Double y = spaceCoord.getY();
-				Double z = spaceCoord.getZ();
 				double latCursor = SpaceCoordToGeoCoord(spaceCoord).getX();
 				double lonCursor = SpaceCoordToGeoCoord(spaceCoord).getY();
 				GeoHash.Location loc = new GeoHash.Location("selectedGeoHash", latCursor, lonCursor);
@@ -507,7 +504,6 @@ public class Controller implements Initializable {
 
 	private void majLegende()
 	{
-		int ecart = 0;
 		if((App.Requete.getMaxOccurence() == Integer.MIN_VALUE))
 		{
 			legend0.setText(Integer.toString(0));
@@ -589,13 +585,13 @@ public class Controller implements Initializable {
 		float lat = (float)(Math.asin(-p.getY()/1.01f)*(180/Math.PI) - TEXTURE_LAT_OFFSET);
 		float lon;
 
+		double cos = Math.cos((Math.PI / 180) * (lat + TEXTURE_LAT_OFFSET));
+
 		if (p.getZ()<0) {
-			lon = 180 - (float)(Math.asin(-p.getX()/(1.01f*Math.cos((Math.PI/180)
-					*(lat+TEXTURE_LAT_OFFSET))))*180/Math.PI + TEXTURE_LON_OFFSET);
+			lon = 180 - (float)(Math.asin(-p.getX()/(1.01f* cos))*180/Math.PI + TEXTURE_LON_OFFSET);
 		}
 		else {
-			lon = (float) (Math.asin(-p.getX()/(1.01f*Math.cos((Math.PI/180)
-					*(lat+TEXTURE_LAT_OFFSET))))*180/Math.PI - TEXTURE_LON_OFFSET);
+			lon = (float) (Math.asin(-p.getX()/(1.01f* cos))*180/Math.PI - TEXTURE_LON_OFFSET);
 		}
 		return new Point2D(lat,lon);
 	}

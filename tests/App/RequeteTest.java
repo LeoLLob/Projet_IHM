@@ -61,6 +61,7 @@ public class RequeteTest {
         assertEquals("Oxynotus centrina", Requete.getListeRechercheZone().get(0).getScientificName());
         assertEquals("bauchot", Requete.getListeRechercheZone().get(0).getRecordedBy());
         assertEquals("Oxynotus centrina", Requete.getListeRechercheZone().get(0).getSpecies());
+        assertEquals("spd", Requete.getListeRechercheZone().get(0).getGeoHash());
     }
 
     @Test
