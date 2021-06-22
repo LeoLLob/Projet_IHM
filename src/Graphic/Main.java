@@ -14,7 +14,7 @@ public class Main extends Application{
     public void start(Stage primaryStage){
         try {
             Parent content = FXMLLoader.load(getClass().getResource("gui2D.fxml"));
-            primaryStage.setTitle("Cube 3D in GUI 2D");
+            primaryStage.setTitle("Obis 3D");
             primaryStage.setScene(new Scene(content));
             primaryStage.show();
         }catch (IOException e){

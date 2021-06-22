@@ -195,7 +195,6 @@ public class Requete {
         
         listeRechercheNom.clear();
         String url = getURL(scientificName, precision);
-        System.out.println(url);
         JSONObject JsonRoot = readJsonFromUrl(url);
         JSONArray resultatRecherche = JsonRoot.getJSONArray("features");
         for(Object object : resultatRecherche ) {

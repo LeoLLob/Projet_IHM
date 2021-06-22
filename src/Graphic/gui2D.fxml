@@ -6,7 +6,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
@@ -18,7 +17,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Graphic.Controller">
     <children>
-        <Pane layoutX="-149.0" layoutY="-11.0" prefHeight="681.0" prefWidth="954.0">
+        <Pane layoutX="-149.0" layoutY="-11.0" maxHeight="681.0" maxWidth="957.0" prefHeight="681.0" prefWidth="957.0">
             <children>
                 <Pane fx:id="pane3D" layoutX="149.0" layoutY="11.0" prefHeight="572.0" prefWidth="600.0" style="-fx-background-color: #DCDCDC#DCDCDC;">
                     <children>
@@ -31,10 +30,6 @@
                   <Font name="Arial" size="13.0" />
                </font></Button>
                 <DatePicker fx:id="idDateBox" layoutX="820.0" layoutY="338.0" prefHeight="26.0" prefWidth="122.0" />
-                <TextField fx:id="idRegion" layoutX="755.0" layoutY="163.0" prefHeight="33.0" prefWidth="184.0" promptText="Région">
-                    <font>
-                        <Font name="Arial" size="13.0" />
-                    </font></TextField>
                 <TextArea fx:id="idConsole" layoutX="149.0" layoutY="578.0" prefHeight="102.0" prefWidth="600.0" promptText="Console..">
                     <font>
                         <Font name="Arial" size="14.0" />
@@ -47,26 +42,12 @@
                         <Font name="Arial" size="14.0" />
                     </font>
                 </Label>
-                <Separator layoutX="750.0" layoutY="138.0" prefHeight="18.0" prefWidth="205.0" />
-                <RadioButton fx:id="idZone" layoutX="759.0" layoutY="91.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" text="Recherche par zone">
-                    <font>
-                        <Font name="Arial" size="14.0" />
-                    </font>
-                </RadioButton>
-                <RadioButton fx:id="idNom" layoutX="759.0" layoutY="42.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" selected="true" text="Recherche par nom">
-                    <font>
-                        <Font name="Arial" size="14.0" />
-                    </font>
-                </RadioButton>
+                <Separator layoutX="749.0" layoutY="181.0" prefHeight="18.0" prefWidth="205.0" />
                 <CheckBox fx:id="idDate" layoutX="759.0" layoutY="306.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Date :">
                <font>
                   <Font name="Arial" size="13.0" />
                </font></CheckBox>
                 <Separator layoutX="749.0" layoutY="288.0" prefHeight="18.0" prefWidth="205.0" />
-                <TextField fx:id="idInterv" layoutX="755.0" layoutY="413.0" prefHeight="33.0" prefWidth="184.0" promptText="Nombres d'intervalles">
-               <font>
-                  <Font name="Arial" size="13.0" />
-               </font></TextField>
                 <Label layoutX="762.0" layoutY="482.0" prefHeight="18.0" prefWidth="77.0" text="Précision : ">
                     <font>
                         <Font name="Arial" size="14.0" />
@@ -144,6 +125,11 @@
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
+            <Label layoutX="752.0" layoutY="50.0" prefHeight="94.0" prefWidth="190.0" text="OBIS 3D">
+               <font>
+                  <Font name="Arial" size="48.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
     </children>
