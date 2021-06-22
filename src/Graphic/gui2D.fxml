@@ -29,7 +29,7 @@
                <font>
                   <Font name="Arial" size="13.0" />
                </font></Button>
-                <DatePicker fx:id="idDateBox" layoutX="820.0" layoutY="338.0" prefHeight="26.0" prefWidth="122.0" />
+                <DatePicker fx:id="idDateBox" layoutX="820.0" layoutY="350.0" prefHeight="26.0" prefWidth="122.0" />
                 <TextArea fx:id="idConsole" layoutX="149.0" layoutY="578.0" prefHeight="102.0" prefWidth="600.0" promptText="Console..">
                     <font>
                         <Font name="Arial" size="14.0" />
@@ -37,7 +37,7 @@
                 </TextArea>
                 <Separator layoutX="749.0" layoutY="446.0" prefHeight="25.0" prefWidth="205.0" />
                 <Separator layoutX="748.0" layoutY="572.0" prefHeight="18.0" prefWidth="205.0" />
-                <Label alignment="CENTER" layoutX="759.0" layoutY="341.0" prefHeight="19.0" prefWidth="61.0" text="Du :">
+                <Label alignment="CENTER" layoutX="759.0" layoutY="353.0" prefHeight="19.0" prefWidth="61.0" text="Du :">
                     <font>
                         <Font name="Arial" size="14.0" />
                     </font>
@@ -106,16 +106,16 @@
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <Button fx:id="idStart" layoutX="180.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Start">
+            <Button fx:id="idStart" layoutX="180.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Start">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="idPause" layoutX="250.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Pause" />
-            <Button fx:id="idReset" layoutX="320.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Reset" />
+            <Button fx:id="idPause" layoutX="260.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Pause" />
+            <Button fx:id="idStop" layoutX="340.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Stop" />
             <ListView fx:id="list" layoutX="150.0" layoutY="12.0" prefHeight="200.0" prefWidth="200.0" />
-            <DatePicker fx:id="idDateBox1" layoutX="820.0" layoutY="377.0" prefHeight="26.0" prefWidth="122.0" />
-            <Label alignment="CENTER" layoutX="760.0" layoutY="379.0" prefHeight="19.0" prefWidth="61.0" text="Au :">
+            <DatePicker fx:id="idDateBox1" layoutX="820.0" layoutY="399.0" prefHeight="26.0" prefWidth="122.0" />
+            <Label alignment="CENTER" layoutX="760.0" layoutY="401.0" prefHeight="19.0" prefWidth="61.0" text="Au :">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -125,7 +125,7 @@
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <Label layoutX="752.0" layoutY="50.0" prefHeight="94.0" prefWidth="190.0" text="OBIS 3D">
+            <Label layoutX="757.0" layoutY="50.0" prefHeight="94.0" prefWidth="190.0" text="OBIS 3D">
                <font>
                   <Font name="Arial" size="48.0" />
                </font>

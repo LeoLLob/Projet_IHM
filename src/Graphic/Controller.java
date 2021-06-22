@@ -6,12 +6,8 @@ import App.RechercheDate;
 import App.RechercheNom;
 import App.Requete;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import com.interactivemesh.jfx.importer.ImportException;
@@ -26,12 +22,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.*;
 import javafx.scene.shape.*;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -123,7 +116,7 @@ public class Controller implements Initializable {
 	private Button idPause;
 
 	@FXML
-	private Button idReset;
+	private Button idStop;
 
 	@FXML
 	private ListView list;
@@ -152,7 +145,7 @@ public class Controller implements Initializable {
 		legend8.setEditable(false);
 
 		idPause.setDisable(true);
-		idReset.setDisable(true);
+		idStop.setDisable(true);
 		idStart.setDisable(true);
 
 		idConsole.setEditable(false);
@@ -162,6 +155,41 @@ public class Controller implements Initializable {
 
 		list.setVisible(false);
 
+//Importation de la Terre
+		ObjModelImporter objImporter = new ObjModelImporter();
+		try {
+			URL modelUrl = this.getClass().getResource("Earth/earth.obj");
+			objImporter.read(modelUrl);
+		} catch (ImportException e) {
+			System.out.println(e.getMessage());
+		}
+		MeshView[] meshViews = objImporter.getImport();
+		Group earth = new Group(meshViews);
+
+		// Add a camera group
+		PerspectiveCamera camera = new PerspectiveCamera(true);
+		new CameraManager(camera, pane3D, root3D);
+
+
+		// Add ambient light
+		AmbientLight ambientLight = new AmbientLight(Color.WHITE);
+		ambientLight.getScope().addAll(root3D);
+		root3D.getChildren().add(ambientLight);
+		root3D.getChildren().add(earth);
+
+
+		// Create subscene
+		SubScene subscene = new SubScene(root3D, 600, 600, true, SceneAntialiasing.BALANCED);
+		subscene.setCamera(camera);
+		subscene.setFill(Color.GREY);
+		pane3D.getChildren().addAll(subscene);
+
+		App.Requete.startApp();
+		majLegende();
+		afficheEspNom(App.Requete.getListeRechercheNom(), earth);
+		idConsole.appendText("Recherche effectuée : Selachii\nPrécision : 3");
+
+		//Events
 
 		idDate.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -202,87 +230,6 @@ public class Controller implements Initializable {
 			}
 		});
 
-
-		//Importation de la Terre
-		ObjModelImporter objImporter = new ObjModelImporter();
-		try {
-			URL modelUrl = this.getClass().getResource("Earth/earth.obj");
-			objImporter.read(modelUrl);
-		} catch (ImportException e) {
-			System.out.println(e.getMessage());
-		}
-		MeshView[] meshViews = objImporter.getImport();
-		Group earth = new Group(meshViews);
-
-		// Add a camera group
-		PerspectiveCamera camera = new PerspectiveCamera(true);
-		new CameraManager(camera, pane3D, root3D);
-
-
-		// Add ambient light
-		AmbientLight ambientLight = new AmbientLight(Color.WHITE);
-		ambientLight.getScope().addAll(root3D);
-		root3D.getChildren().add(ambientLight);
-		root3D.getChildren().add(earth);
-
-		//Animation de la Terre
-		//Animation(earth, 30);
-
-		// Create subscene
-		SubScene subscene = new SubScene(root3D, 600, 600, true, SceneAntialiasing.BALANCED);
-		subscene.setCamera(camera);
-		subscene.setFill(Color.GREY);
-		pane3D.getChildren().addAll(subscene);
-
-
-		subscene.addEventHandler(MouseEvent.ANY, event -> {
-			if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.isShiftDown()) {
-				PickResult pickResult = event.getPickResult();
-				Point3D spaceCoord = pickResult.getIntersectedPoint();
-				System.out.println(spaceCoord.getX());
-				System.out.println(spaceCoord.getY());
-				System.out.println(spaceCoord.getZ());
-
-				Sphere sphere = new Sphere(0.009);
-				final PhongMaterial sphereMaterial = new PhongMaterial();
-				sphereMaterial.setSpecularColor(Color.WHITE);
-				sphereMaterial.setDiffuseColor(Color.WHITE);
-				sphere.setMaterial(sphereMaterial);
-				sphere.setTranslateX(spaceCoord.getX());
-				sphere.setTranslateY(spaceCoord.getY());
-				sphere.setTranslateZ(spaceCoord.getZ());
-				earth.getChildren().add(sphere);
-			}
-		});
-
-
-		subscene.addEventHandler(MouseEvent.ANY, event -> {
-			if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.isAltDown()) {
-				PickResult pickResult = event.getPickResult();
-				Point3D spaceCoord = pickResult.getIntersectedPoint();
-				Double x = spaceCoord.getX();
-				Double y = spaceCoord.getY();
-				Double z = spaceCoord.getZ();
-				double latCursor = SpaceCoordToGeoCoord(spaceCoord).getX();
-				double lonCursor = SpaceCoordToGeoCoord(spaceCoord).getY();
-				Double latitude = latCursor;
-				Double longitude = lonCursor;
-				GeoHash.Location loc = new GeoHash.Location("selectedGeoHash", latCursor, lonCursor);
-				String Hash = GeoHash.GeoHashHelper.getGeohash(loc, 5);
-				idConsole.setStyle("-fx-text-fill: black; -fx-font-size: 13px;");
-				idConsole.appendText("Coordonnée en x : " + x + "\n" + "Coordonnée en y : " + y + "\n"
-						+ "Coordonnée en z : " + z + "\n" + "Longitude : " + longitude + "\n" + "Latitude : " + latitude + "\n"
-						+ "Geohash : " + Hash + "\n" +
-						"									********************************** \n");
-			}
-		});
-
-		App.Requete.startApp();
-		majLegende();
-		afficheEspNom(App.Requete.getListeRechercheNom(), earth);
-		idConsole.appendText("Recherche effectuée : Selachii\nPrécision : 3");
-
-
 		idSearch.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -299,7 +246,7 @@ public class Controller implements Initializable {
 							App.Requete.creerRechercheDate(idEspece.getText(), (int) idSlider.getValue(), idDateBox.getValue().toString(), idDateBox1.getValue().toString());
 							majLegende();
 							afficheEspDate(App.Requete.getListeRechercheDate(), earth);
-							idConsole.appendText("Recherche effectuée : " + idEspece.getText() + "\nPrécision : " + (int) idSlider.getValue()
+							idConsole.appendText("Recherche effectuée : " + idEspece.getText().toLowerCase() + "\nPrécision : " + (int) idSlider.getValue()
 									+ "\nEntre le " + idDateBox.getValue().toString() + " et le " + idDateBox1.getValue().toString());
 						}else{
 							idConsole.appendText("Les dates sont incorrectes");
@@ -309,7 +256,7 @@ public class Controller implements Initializable {
 						App.Requete.creerRechercheNom(idEspece.getText(), (int) idSlider.getValue());
 						majLegende();
 						afficheEspNom(App.Requete.getListeRechercheNom(), earth);
-						idConsole.appendText("Recherche effectuée : " + idEspece.getText() + "\nPrécision : " + (int) idSlider.getValue() + "\n");
+						idConsole.appendText("Recherche effectuée : " + idEspece.getText().toLowerCase() + "\nPrécision : " + (int) idSlider.getValue() + "\n");
 					}
 
 				} else {
@@ -328,7 +275,7 @@ public class Controller implements Initializable {
 						@Override
 						public void run() {
 							idStart.setDisable(true);
-							idReset.setDisable(false);
+							idStop.setDisable(false);
 							idPause.setDisable(false);
 							idEspece.setDisable(true);
 							idDateBox.setDisable(true);
@@ -342,7 +289,7 @@ public class Controller implements Initializable {
 								String debut = localDate.toString();
 								localDate = localDate.withYear(localDate.getYear() + 5);
 								String fin = localDate.toString();
-								if(localDate.compareTo(idDateBox1.getValue()) > 0)
+								if(localDate.compareTo(idDateBox1.getValue()) >= 0)
 								{
 									fin = idDateBox1.getValue().toString();
 								}
@@ -389,7 +336,7 @@ public class Controller implements Initializable {
 
 
 							idPause.setDisable(true);
-							idReset.setDisable(true);
+							idStop.setDisable(true);
 							idStart.setDisable(false);
 							idEspece.setDisable(false);
 							idDateBox.setDisable(false);
@@ -417,16 +364,79 @@ public class Controller implements Initializable {
 			}
 		});
 
-		idReset.setOnAction(new EventHandler<ActionEvent>() {
+		idStop.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
 				stop = !stop;
 			}
 		});
 
+		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				idConsole.clear();
+				idDate.setSelected(false);
+				idDateBox.setValue(null);
+				idDateBox1.setValue(null);
+				idDateBox.setDisable(true);
+				idDateBox1.setDisable(true);
+				earth.getChildren().remove(1, earth.getChildren().size());
+				String nomScientifique = list.getSelectionModel().getSelectedItem().toString();
+				App.Requete.creerRechercheNom(nomScientifique, (int) idSlider.getValue());
+				majLegende();
+				afficheEspNom(App.Requete.getListeRechercheNom(), earth);
+				idConsole.appendText("Recherche effectuée : " + nomScientifique + "\nPrécision : " + (int) idSlider.getValue() + "\n");
+				idEspece.setText(nomScientifique);
+				list.getItems().clear();
+				list.setVisible(false);
+			}
+		});
+
+		subscene.addEventHandler(MouseEvent.ANY, event -> {
+			if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.isShiftDown()) {
+				PickResult pickResult = event.getPickResult();
+				Point3D spaceCoord = pickResult.getIntersectedPoint();
+				System.out.println(spaceCoord.getX());
+				System.out.println(spaceCoord.getY());
+				System.out.println(spaceCoord.getZ());
+
+				Sphere sphere = new Sphere(0.009);
+				final PhongMaterial sphereMaterial = new PhongMaterial();
+				sphereMaterial.setSpecularColor(Color.WHITE);
+				sphereMaterial.setDiffuseColor(Color.WHITE);
+				sphere.setMaterial(sphereMaterial);
+				sphere.setTranslateX(spaceCoord.getX());
+				sphere.setTranslateY(spaceCoord.getY());
+				sphere.setTranslateZ(spaceCoord.getZ());
+				earth.getChildren().add(sphere);
+			}
+		});
+
+		subscene.addEventHandler(MouseEvent.ANY, event -> {
+			if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.isAltDown()) {
+				PickResult pickResult = event.getPickResult();
+				Point3D spaceCoord = pickResult.getIntersectedPoint();
+				Double x = spaceCoord.getX();
+				Double y = spaceCoord.getY();
+				Double z = spaceCoord.getZ();
+				double latCursor = SpaceCoordToGeoCoord(spaceCoord).getX();
+				double lonCursor = SpaceCoordToGeoCoord(spaceCoord).getY();
+				Double latitude = latCursor;
+				Double longitude = lonCursor;
+				GeoHash.Location loc = new GeoHash.Location("selectedGeoHash", latCursor, lonCursor);
+				String Hash = GeoHash.GeoHashHelper.getGeohash(loc, 5);
+				idConsole.setStyle("-fx-text-fill: black; -fx-font-size: 13px;");
+				idConsole.appendText("Coordonnée en x : " + x + "\n" + "Coordonnée en y : " + y + "\n"
+						+ "Coordonnée en z : " + z + "\n" + "Longitude : " + longitude + "\n" + "Latitude : " + latitude + "\n"
+						+ "Geohash : " + Hash + "\n" +
+						"									********************************** \n");
+			}
+		});
 
 		subscene.addEventHandler(MouseEvent.ANY, event -> {
 			if (event.getEventType() == MouseEvent.MOUSE_PRESSED && event.isControlDown()) {
+				idConsole.clear();
+				list.getItems().clear();
 				PickResult pickResult = event.getPickResult();
 				Point3D spaceCoord = pickResult.getIntersectedPoint();
 				Double x = spaceCoord.getX();
@@ -443,37 +453,16 @@ public class Controller implements Initializable {
 							+ " \n");
 				}
 				list.setVisible(true);
-				ArrayList<String> doublons = new ArrayList<String>();
-				ArrayList<String> nomScientifiques = new ArrayList<String>();
-
 				for (App.RechercheZone rechercheZone : App.Requete.getListeRechercheZone()) {
 					list.getItems().add(rechercheZone.getScientificName());
 				}
-
-
-			}
-		});
-
-		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				idConsole.clear();
-				earth.getChildren().remove(1, earth.getChildren().size());
-				String nomScientifique = list.getSelectionModel().getSelectedItem().toString();
-				App.Requete.creerRechercheNom(nomScientifique, (int) idSlider.getValue());
-				majLegende();
-				afficheEspNom(App.Requete.getListeRechercheNom(), earth);
-				idConsole.appendText("Recherche effectuée : " + nomScientifique + "\nPrécision : " + (int) idSlider.getValue() + "\n");
-				idEspece.setText(nomScientifique);
-				list.getItems().clear();
-				list.setVisible(false);
 			}
 		});
 	}
 
 	public boolean nomScientifiqueExiste(String nomScientifique){
 		for(String nom : Requete.getListeNom()){
-			if(nomScientifique.toLowerCase().equals(nom.toLowerCase())){
+			if(nomScientifique.equalsIgnoreCase(nom)){
 				return true;
 			}
 		}
@@ -481,8 +470,6 @@ public class Controller implements Initializable {
 	}
 
 	public void afficheEspNom (ArrayList< RechercheNom > listeRechercheNom, Group earth){
-
-
 		for(App.RechercheNom rechercheNom : listeRechercheNom) {
 
 			int occurence = rechercheNom.getOccurence();
@@ -496,27 +483,21 @@ public class Controller implements Initializable {
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(1).getY(), (float) rechercheNom.getCoord().get(1).getX()),
 					geoCoordTo3dCoord((float) rechercheNom.getCoord().get(2).getY(), (float) rechercheNom.getCoord().get(2).getX()),
 					phongMaterial);
-
 		}
 	}
 
 	public void afficheEspDate (ArrayList<RechercheDate> listeRechercheDate, Group earth){
-
-
 		for(App.RechercheDate rechercheDate : listeRechercheDate) {
-
 			int occurence = rechercheDate.getOccurence();
 			Color color = choixCouleur(occurence);
 			PhongMaterial phongMaterial = new PhongMaterial();
 			phongMaterial.setDiffuseColor(color);
-
 			AddQuadrilateral(earth,
 					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(3).getY(), (float) rechercheDate.getCoord().get(3).getX()),
 					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(0).getY(), (float) rechercheDate.getCoord().get(0).getX()),
 					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(1).getY(), (float) rechercheDate.getCoord().get(1).getX()),
 					geoCoordTo3dCoord((float) rechercheDate.getCoord().get(2).getY(), (float) rechercheDate.getCoord().get(2).getX()),
 					phongMaterial);
-
 		}
 	}
 
@@ -536,20 +517,6 @@ public class Controller implements Initializable {
 			legend8.setText(Integer.toString(0));
 		}
 		else {
-			/*
-			ecart = (App.Requete.getMaxOccurence() - App.Requete.getMinOccurence()) / 8;
-			legend0.setText(Integer.toString(App.Requete.getMinOccurence()));
-			legend1.setText(Integer.toString(App.Requete.getMinOccurence() + 1 * ecart));
-			legend2.setText(Integer.toString(App.Requete.getMinOccurence() + 2 * ecart));
-			legend3.setText(Integer.toString(App.Requete.getMinOccurence() + 3 * ecart));
-			legend4.setText(Integer.toString(App.Requete.getMinOccurence() + 4 * ecart));
-			legend5.setText(Integer.toString(App.Requete.getMinOccurence() + 5 * ecart));
-			legend6.setText(Integer.toString(App.Requete.getMinOccurence() + 6 * ecart));
-			legend7.setText(Integer.toString(App.Requete.getMinOccurence() + 7 * ecart));
-			legend8.setText(Integer.toString(App.Requete.getMaxOccurence()));
-
-			 */
-
 			legend0.setText(Integer.toString(App.Requete.getMinOccurence()));
 			legend1.setText(Integer.toString((int)(0.001*App.Requete.getMaxOccurence())));
 			legend2.setText(Integer.toString((int)((0.01)*App.Requete.getMaxOccurence())));
@@ -572,7 +539,6 @@ public class Controller implements Initializable {
 		else if (occurence >= Integer.parseInt(legend5.getText()) && occurence < Integer.parseInt(legend6.getText())) return (Color) rec5.getFill();
 		else if (occurence >= Integer.parseInt(legend6.getText()) && occurence < Integer.parseInt(legend7.getText())) return (Color) rec6.getFill();
 		else   return (Color) rec7.getFill();
-
 	}
 
 	public static Point3D geoCoordTo3dCoord(float lat, float lon) {
@@ -629,48 +595,6 @@ public class Controller implements Initializable {
 		}
 		return new Point2D(lat,lon);
 	}
-
-/*
-	public void Animation(Group earth, double RotationSpeed) {
-		final long startNanoTime = System.nanoTime();
-		new AnimationTimer() {
-			public void handle(long currentNanoTime) {
-				double t = (currentNanoTime - startNanoTime) / 10000000000.0;
-				earth.setRotationAxis(new Point3D(0,1,0));
-				earth.setRotate(RotationSpeed * t);
-			}
-		}.start();
-	}
-
- */
- /*
-	public void majComboBox(String nom) {
-		ObservableList<String> Liste = FXCollections.observableArrayList();
-		// finir en utilisant la fonction déjà donnée pour les 20 premiers
-		getURLNom(String chaine);
-		JSONArray arrayjson = JSONArray readJsonFromUrlListeNom(String url);
-		listeNom(JSONArray JsonRoot);
-		idEsp.setItems(Liste);
-	}
-
-
-	public void update() {
-		idEspece.textProperty().addListener((observable, oldvalue, newvalue) ->
-		majComboBox(newvalue));}
-
-	public void keyTyped(KeyEvent e) {
-		majComboBox(getNomEsp());
-	}
-
-	public String getNomEsp() {
-		return idEspece.getText();
-	}
-
-	public void setNomEsp(String nom) {
-		idEspece.setText(nom);
-	}
-*/
-
 }
 
 
