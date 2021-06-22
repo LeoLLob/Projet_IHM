@@ -225,7 +225,7 @@ public class Requete {
         }
     }
 
-    // nombre de signalements par zone par intervalle de temps
+
     public static void creerRechercheDate(String scientificName, int precision, String dateDebut, String dateFin){
         maxOccurence = Integer.MIN_VALUE;
         minOccurence = Integer.MAX_VALUE;
