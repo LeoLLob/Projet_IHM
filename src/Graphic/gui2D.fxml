@@ -24,7 +24,7 @@
                         <Separator layoutX="597.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="670.0" prefWidth="5.0" />
                     </children>
                 </Pane>
-                <Slider fx:id="idSlider" blockIncrement="1.0" layoutX="756.0" layoutY="500.0" majorTickUnit="1.0" max="12.0" min="1.0" minorTickCount="0" prefHeight="63.0" prefWidth="190.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
+                <Slider fx:id="idSlider" blockIncrement="1.0" layoutX="756.0" layoutY="500.0" majorTickUnit="1.0" max="6.0" min="2.0" minorTickCount="0" prefHeight="63.0" prefWidth="190.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
                 <Button fx:id="idSearch" layoutX="779.0" layoutY="608.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="141.0" text="Search">
                <font>
                   <Font name="Arial" size="13.0" />

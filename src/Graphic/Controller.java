@@ -284,8 +284,31 @@ public class Controller implements Initializable {
 							idSlider.setDisable(true);
 							idSearch.setDisable(true);
 
+
+
 							LocalDate localDate = idDateBox.getValue();
 							while (localDate.getYear() <= idDateBox1.getValue().getYear()) {
+								while(pause)
+								{
+									if(stop)
+									{
+										pause = false;
+										stop = false;
+										break;
+									}
+									try {
+										Thread.sleep(100);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
+								}
+
+								if(stop)
+								{
+									stop = false;
+									break;
+								}
+
 								String debut = localDate.toString();
 								localDate = localDate.withYear(localDate.getYear() + 5);
 								String fin = localDate.toString();
@@ -309,32 +332,14 @@ public class Controller implements Initializable {
 									}
 								});
 
-								while(pause)
-								{
-									if(stop)
-									{
-										break;
-									}
-									try {
-										Thread.sleep(100);
-									} catch (InterruptedException e) {
-										e.printStackTrace();
-									}
-								}
 
-								if(stop)
-								{
-									break;
-								}
 
 								try {
-									Thread.sleep(300);
+									Thread.sleep(500);
 								} catch (InterruptedException e) {
 									e.printStackTrace();
 								}
 							}
-
-
 							idPause.setDisable(true);
 							idStop.setDisable(true);
 							idStart.setDisable(false);
@@ -344,7 +349,6 @@ public class Controller implements Initializable {
 							idDate.setDisable(false);
 							idSlider.setDisable(false);
 							idSearch.setDisable(false);
-
 						}
 					}).start();
 				}
