@@ -5,6 +5,7 @@ import java.net.URL;
 import App.RechercheDate;
 import App.RechercheNom;
 import App.Requete;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -262,10 +263,13 @@ public class Controller implements Initializable {
 			public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 				idEsp.getItems().clear();
 				App.Requete.listeNom(idEspece.getText());
+
 				if(!App.Requete.getListeNom().isEmpty()) {
 					idEsp.getItems().addAll(App.Requete.getListeNom());
+
 					idEsp.show();
 				}
+
 			}
 		});
 
@@ -404,39 +408,43 @@ public class Controller implements Initializable {
 			}
 		});
 
+
 		idStart.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (idDateBox.getValue() != null && idDateBox1.getValue() != null && idDateBox.getValue().compareTo(idDateBox1.getValue()) < 0)
-				{
-					idStart.setDisable(true);
-					idPause.setDisable(false);
+				if (idDateBox.getValue() != null && idDateBox1.getValue() != null && idDateBox.getValue().compareTo(idDateBox1.getValue()) < 0) {
+					//idStart.setDisable(true);
+					//idPause.setDisable(false);
 
-					LocalDate localDate = idDateBox.getValue();
-					localDate = localDate.withYear(localDate.getYear()+5);
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							LocalDate localDate = idDateBox.getValue();
+							localDate = localDate.withYear(localDate.getYear() + 5);
+							while (localDate.getYear() <= idDateBox1.getValue().getYear() - 5) {
+								String debut = localDate.toString();
+								System.out.println(debut);
+								localDate = localDate.withYear(localDate.getYear() + 5);
+								String fin = localDate.toString();
+								System.out.println(fin);
+
+								Requete.creerRechercheDate(idEspece.getText(), (int) idSlider.getValue(), debut, fin);
+								majLegende();
 
 
-					while(localDate.getYear() <= idDateBox1.getValue().getYear() - 5)
-					{
+								Platform.runLater(new Runnable() {
+									@Override
+									public void run() {
+										earth.getChildren().remove(1, earth.getChildren().size());
+										afficheEspDate(Requete.getListeRechercheDate(), earth);
+										System.out.println("test");
 
-						String debut = localDate.toString();
-						System.out.println(debut);
-						localDate = localDate.withYear(localDate.getYear()+5);
-						String fin = localDate.toString();
-						System.out.println(fin);
-
-						earth.getChildren().remove(1, earth.getChildren().size());
-						App.Requete.creerRechercheDate(idEspece.getText(), (int) idSlider.getValue(), debut, fin);
-						majLegende();
-						afficheEspDate(App.Requete.getListeRechercheDate(), earth);
-
-						int tick = 0;
-						while(tick < 10000)
-						{
-							tick++;
+									}
+								});
+							}
 						}
-					}
-					idStart.setDisable(false);
+					}).start();
+
 				}
 			}
 		});
@@ -476,6 +484,7 @@ public class Controller implements Initializable {
 			}
 		});
 	}
+
 
 	public void afficheEspNom (ArrayList< RechercheNom > listeRechercheNom, Group earth){
 
@@ -533,6 +542,7 @@ public class Controller implements Initializable {
 			legend8.setText(Integer.toString(0));
 		}
 		else {
+			/*
 			ecart = (App.Requete.getMaxOccurence() - App.Requete.getMinOccurence()) / 8;
 			legend0.setText(Integer.toString(App.Requete.getMinOccurence()));
 			legend1.setText(Integer.toString(App.Requete.getMinOccurence() + 1 * ecart));
@@ -542,6 +552,18 @@ public class Controller implements Initializable {
 			legend5.setText(Integer.toString(App.Requete.getMinOccurence() + 5 * ecart));
 			legend6.setText(Integer.toString(App.Requete.getMinOccurence() + 6 * ecart));
 			legend7.setText(Integer.toString(App.Requete.getMinOccurence() + 7 * ecart));
+			legend8.setText(Integer.toString(App.Requete.getMaxOccurence()));
+
+			 */
+
+			legend0.setText(Integer.toString(App.Requete.getMinOccurence()));
+			legend1.setText(Integer.toString((int)(0.001*App.Requete.getMaxOccurence())));
+			legend2.setText(Integer.toString((int)((0.01)*App.Requete.getMaxOccurence())));
+			legend3.setText(Integer.toString((int)(0.05*App.Requete.getMaxOccurence())));
+			legend4.setText(Integer.toString((int)(0.15*App.Requete.getMaxOccurence())));
+			legend5.setText(Integer.toString((int)(0.40*App.Requete.getMaxOccurence())));
+			legend6.setText(Integer.toString((int)(0.75*App.Requete.getMaxOccurence())));
+			legend7.setText(Integer.toString((int)(0.95*App.Requete.getMaxOccurence())));
 			legend8.setText(Integer.toString(App.Requete.getMaxOccurence()));
 		}
 	}
