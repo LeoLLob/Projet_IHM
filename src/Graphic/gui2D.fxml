@@ -66,42 +66,42 @@
             <Rectangle fx:id="rec2" arcHeight="5.0" arcWidth="5.0" fill="#fff921" height="50.0" layoutX="720.0" layoutY="340.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
             <Rectangle fx:id="rec1" arcHeight="5.0" arcWidth="5.0" fill="#c6ff21" height="50.0" layoutX="720.0" layoutY="390.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
             <Rectangle fx:id="rec0" arcHeight="5.0" arcWidth="5.0" fill="#7df81e" height="50.0" layoutX="720.0" layoutY="440.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-            <TextField fx:id="legend7" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="130.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend7" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="130.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend6" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="180.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend6" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="180.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend5" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="230.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend5" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="230.0" prefHeight="17.0" prefWidth="50.0" style="-fx-text-inner-color: WHITE; -fx-background-color: transparent;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend4" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="280.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend4" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="280.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend3" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="330.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend3" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="330.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend1" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="430.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend1" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="430.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend0" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="480.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend0" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="480.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <TextField fx:id="legend2" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="380.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend2" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="380.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
@@ -120,7 +120,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="legend8" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="80.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: GREY;">
+            <TextField fx:id="legend8" alignment="CENTER_RIGHT" layoutX="670.0" layoutY="80.0" prefHeight="17.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-text-inner-color: WHITE;">
                <font>
                   <Font name="Arial" size="9.0" />
                </font>
