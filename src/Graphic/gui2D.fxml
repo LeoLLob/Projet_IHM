@@ -125,7 +125,7 @@
                   <Font name="Arial" size="9.0" />
                </font>
             </TextField>
-            <Label layoutX="757.0" layoutY="50.0" prefHeight="94.0" prefWidth="190.0" text="OBIS 3D">
+            <Label alignment="CENTER" layoutX="757.0" layoutY="50.0" prefHeight="94.0" prefWidth="190.0" text="OBIS 3D">
                <font>
                   <Font name="Arial" size="48.0" />
                </font>
