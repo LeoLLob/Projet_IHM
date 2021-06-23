@@ -16,6 +16,7 @@ public class Main extends Application{
             Parent content = FXMLLoader.load(getClass().getResource("gui2D.fxml"));
             primaryStage.setTitle("Obis 3D");
             primaryStage.setScene(new Scene(content));
+            primaryStage.setResizable(false);
             primaryStage.show();
         }catch (IOException e){
             e.printStackTrace();

@@ -14,4 +14,12 @@ public class RechercheDate extends RechercheNom{
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
     }
+
+    public String getDateDebut() {
+        return dateDebut;
+    }
+
+    public String getDateFin() {
+        return dateFin;
+    }
 }

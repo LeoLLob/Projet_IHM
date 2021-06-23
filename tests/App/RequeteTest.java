@@ -14,28 +14,6 @@ public class RequeteTest {
     }
 
     @Test
-    public void getURL() {
-        assertEquals("https://api.obis.org/v3/occurrence/grid/3?scientificname=Delphinidae", Requete.getURL("Delphinidae",3));
-    }
-
-    @Test
-    public void getURLDate() {
-        assertEquals("https://api.obis.org/v3/occurrence/grid/3?scientificname=Delphinidae&startdate=2012-12-12&enddate=2021-01-01",
-                Requete.getURLDate("Delphinidae",3,"2012-12-12","2021-01-01"));
-    }
-
-    @Test
-    public void getURLZone() {
-        assertEquals("https://api.obis.org/v3/occurrence?geometry=spd", Requete.getURLZone("","spd"));
-        assertEquals("https://api.obis.org/v3/occurrence?scientificname=Delphinidae&geometry=spd", Requete.getURLZone("Delphinidae","spd"));
-    }
-
-    @Test
-    public void getURLNom() {
-        assertEquals("https://api.obis.org/v3/taxon/complete/verbose/de", Requete.getURLNom("de"));
-    }
-
-    @Test
     public void readJsonFromUrl() {
         JSONObject actual = Requete.readJsonFromUrl("https://api.obis.org/v3/occurrence/grid/3?scientificname=Selachii");
         assertEquals(163261, actual.getJSONArray("features").getJSONObject(0).getJSONObject("properties").getInt("n"));
@@ -61,6 +39,10 @@ public class RequeteTest {
         assertEquals("Oxynotus centrina", Requete.getListeRechercheZone().get(0).getScientificName());
         assertEquals("bauchot", Requete.getListeRechercheZone().get(0).getRecordedBy());
         assertEquals("Oxynotus centrina", Requete.getListeRechercheZone().get(0).getSpecies());
+        assertEquals("spd", Requete.getListeRechercheZone().get(0).getGeoHash());
+
+        Requete.creerRechercheZone("", "spd");
+        assertEquals("Prorocentrum", Requete.getListeRechercheZone().get(0).getScientificName());
         assertEquals("spd", Requete.getListeRechercheZone().get(0).getGeoHash());
     }
 
